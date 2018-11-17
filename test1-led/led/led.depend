@@ -1,0 +1,32 @@
+# depslib dependency file v1.0
+1542435990 source:g:\project\stm32f407-embitz\test1-led\led\src\startup_stm32f4xx.s
+
+1542435990 source:g:\project\stm32f407-embitz\test1-led\led\src\system_stm32f4xx.c
+	"stm32f4xx.h"
+
+1542435990 g:\project\stm32f407-embitz\test1-led\led\inc\stm32f4xx.h
+	"core_cm4.h"
+	"system_stm32f4xx.h"
+	<stdint.h>
+	"stm32f4xx_conf.h"
+
+1542435990 g:\project\stm32f407-embitz\test1-led\led\cmsis\core_cm4.h
+	<stdint.h>
+	<core_cmInstr.h>
+	<core_cmFunc.h>
+	<core_cm4_simd.h>
+
+1542435990 g:\project\stm32f407-embitz\test1-led\led\cmsis\core_cminstr.h
+	<cmsis_iar.h>
+
+1542435990 g:\project\stm32f407-embitz\test1-led\led\cmsis\core_cmfunc.h
+	<cmsis_iar.h>
+
+1542435990 g:\project\stm32f407-embitz\test1-led\led\cmsis\core_cm4_simd.h
+	<cmsis_iar.h>
+
+1542435990 g:\project\stm32f407-embitz\test1-led\led\inc\system_stm32f4xx.h
+
+1542436982 source:g:\project\stm32f407-embitz\test1-led\led\src\main.c
+	"stm32f4xx.h"
+
