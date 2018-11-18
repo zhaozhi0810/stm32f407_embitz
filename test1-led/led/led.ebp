@@ -6,6 +6,7 @@
 		<Option title="led" />
 		<Option pch_mode="2" />
 		<Option compiler="armgcc_eb" />
+		<Option virtualFolders="inc\;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin\Debug\led.elf" />
@@ -65,6 +66,7 @@
 		<Unit filename="cmsis\core_cmInstr.h" />
 		<Unit filename="inc\stm32f4xx.h" />
 		<Unit filename="inc\system_stm32f4xx.h" />
+		<Unit filename="inc\uart1.h" />
 		<Unit filename="readme.txt" />
 		<Unit filename="src\main.c">
 			<Option compilerVar="CC" />
@@ -75,8 +77,14 @@
 		<Unit filename="src\system_stm32f4xx.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src\uart1.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="stm32f407ve_flash.ld" />
 		<Unit filename="stm32f407ve_sram.ld" />
+		<Unit filename="uart1.h">
+			<Option virtualFolder="inc\" />
+		</Unit>
 		<Extensions>
 			<DoxyBlocks>
 				<comment_style block="0" line="0" />
