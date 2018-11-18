@@ -27,6 +27,13 @@
 
 1542435990 g:\project\stm32f407-embitz\test1-led\led\inc\system_stm32f4xx.h
 
-1542436982 source:g:\project\stm32f407-embitz\test1-led\led\src\main.c
-	"stm32f4xx.h"
+1542547541 source:g:\project\stm32f407-embitz\test1-led\led\src\main.c
+	<stm32f4xx.h>
+	"uart1.h"
+
+1542547245 source:g:\project\stm32f407-embitz\test1-led\led\src\uart1.c
+	<stm32f4xx.h>
+	"uart1.h"
+
+1542547232 g:\project\stm32f407-embitz\test1-led\led\inc\uart1.h
 
