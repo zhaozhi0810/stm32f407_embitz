@@ -1,0 +1,36 @@
+本文档记录调试过程
+
+2019.01.15 第一次调试f407ve + ucosii
+
+	开发板 f407ve
+	IDE ： EmBitz 1.11
+	OS :  ucosii 2.92
+
+
+	实现两个任务，每个任务控制一个led的闪烁。
+	代码不太规范，只是做第一次尝试使用。
+
+	.asm 文件的后缀改为.S  如os_cpu_a.asm--> os_cpu_a.S
+
+	复制源代码到工程中，如工程中的目录可见
+
+	修改：
+	startup_stm32f4xx.S
+
+	85-88行
+	//    .long    PendSV_Handler        /* PendSV Handler */
+	    .long    OS_CPU_PendSVHandler
+	//    .long    SysTick_Handler       /* SysTick Handler */
+	    .long    OS_CPU_SysTickHandler
+
+
+	//创建任务
+	见main.c
+		printf函数不可用，串口没有初始化。
+
+
+
+	
+
+
+

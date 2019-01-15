@@ -1,0 +1,37 @@
+本文档记录调试过程
+
+2019.01.13 第一次调试f407ve + freertos
+
+开发板 f407ve
+IDE ： EmBitz 1.11
+freertos :  FreeRTOSv9.0.0
+
+复制源代码到工程中，如工程中的目录可见
+
+修改：
+FreeRTOSConfig.h
+87行：
+	#if defined( __ICCARM__) || defined (__CC_ARM) || defined (__GNUC__)
+
+93，94行：
+	#define configUSE_IDLE_HOOK				0
+	#define configUSE_TICK_HOOK				0
+106行：
+	#define configCHECK_FOR_STACK_OVERFLOW	0
+108行：
+	#define configUSE_MALLOC_FAILED_HOOK	0
+
+
+//创建任务
+见main.c
+	printf函数不可用，会出错，所以屏蔽了。
+
+
+
+//出现的问题，调试时运行程序正常，重启按钮按下之后程序无反应
+解决：
+	不要下载调试版的程序，改为发行版就可以了。
+                 Build -> select target -> Release	
+
+
+

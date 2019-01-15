@@ -1,0 +1,185 @@
+# depslib dependency file v1.0
+1547386456 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\src\startup_stm32f4xx.s
+
+1547382398 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\src\system_stm32f4xx.c
+	"stm32f4xx.h"
+
+1547382398 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\inc\stm32f4xx.h
+	"core_cm4.h"
+	"system_stm32f4xx.h"
+	<stdint.h>
+	"stm32f4xx_conf.h"
+
+1547382398 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\cmsis\core_cm4.h
+	<stdint.h>
+	<core_cmInstr.h>
+	<core_cmFunc.h>
+	<core_cm4_simd.h>
+
+1547382398 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\cmsis\core_cminstr.h
+	<cmsis_iar.h>
+
+1547382398 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\cmsis\core_cmfunc.h
+	<cmsis_iar.h>
+
+1547382398 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\cmsis\core_cm4_simd.h
+	<cmsis_iar.h>
+
+1547382398 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\inc\system_stm32f4xx.h
+
+1547429396 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\src\main.c
+	"stm32f4xx.h"
+	"FreeRTOS.h"
+	"task.h"
+	<stdio.h>
+
+1463761430 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\croutine.c
+	"FreeRTOS.h"
+	"task.h"
+	"croutine.h"
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\freertos.h
+	<stddef.h>
+	<stdint.h>
+	"FreeRTOSConfig.h"
+	"projdefs.h"
+	"portable.h"
+	<reent.h>
+
+1547386080 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\freertosconfig.h
+	<stdint.h>
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\projdefs.h
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\portable.h
+	"deprecated_definitions.h"
+	"portmacro.h"
+	"mpu_wrappers.h"
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\deprecated_definitions.h
+	"..\..\Source\portable\owatcom\16bitdos\pc\portmacro.h"
+	"..\..\Source\portable\owatcom\16bitdos\flsh186\portmacro.h"
+	"../portable/GCC/ATMega323/portmacro.h"
+	"../portable/IAR/ATMega323/portmacro.h"
+	"../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h"
+	"../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h"
+	"../../Source/portable/MPLAB/PIC18F/portmacro.h"
+	"../../Source/portable/MPLAB/PIC32MX/portmacro.h"
+	"libFreeRTOS/Include/portmacro.h"
+	"../../Source/portable/SDCC/Cygnal/portmacro.h"
+	"../../Source/portable/GCC/ARM7_LPC2000/portmacro.h"
+	"portmacro.h"
+	"../../Source/portable/GCC/ARM7_LPC23xx/portmacro.h"
+	"..\..\Source\portable\IAR\MSP430\portmacro.h"
+	"../../Source/portable/GCC/MSP430F449/portmacro.h"
+	"../../Source/portable/Rowley/MSP430F449/portmacro.h"
+	"..\..\Source\portable\RVDS\ARM7_LPC21xx\portmacro.h"
+	"../../Source/portable/GCC/ARM7_AT91SAM7S/portmacro.h"
+	"..\..\Source\portable\IAR\AtmelSAM7S64\portmacro.h"
+	"..\..\Source\portable\IAR\AtmelSAM9XE\portmacro.h"
+	"..\..\Source\portable\IAR\LPC2000\portmacro.h"
+	"..\..\Source\portable\IAR\STR71x\portmacro.h"
+	"..\..\Source\portable\IAR\STR75x\portmacro.h"
+	"..\..\Source\portable\GCC\STR75x\portmacro.h"
+	"..\..\Source\portable\IAR\STR91x\portmacro.h"
+	"../../Source/portable/GCC/H8S2329/portmacro.h"
+	"../../Source/portable/GCC/ARM7_AT91FR40008/portmacro.h"
+	"../../Source/portable/RVDS/ARM_CM3/portmacro.h"
+	"../../Source/portable/GCC/ARM_CM3/portmacro.h"
+	"../../Source/portable/GCC/ARM_CM3/portmacro.h"
+	"../../Source/portable/IAR/ARM_CM3/portmacro.h"
+	"../../Source/portable/IAR/ARM_CM3/portmacro.h"
+	"../../Source/portable/CodeWarrior/HCS12/portmacro.h"
+	"../../Source/portable/GCC/MicroBlaze/portmacro.h"
+	"..\..\Source\portable\Paradigm\Tern_EE\small\portmacro.h"
+	"../../Source/portable/GCC/HCS12/portmacro.h"
+	"../../Source/portable/GCC/MCF5235/portmacro.h"
+	"../../../Source/portable/GCC/ColdFire_V2/portmacro.h"
+	"../../Source/portable/CodeWarrior/ColdFire_V2/portmacro.h"
+	"../../Source/portable/GCC/PPC405_Xilinx/portmacro.h"
+	"../../Source/portable/GCC/PPC440_Xilinx/portmacro.h"
+	"..\..\Source\portable\Softune\MB96340\portmacro.h"
+	"frconfig.h"
+	"..\portable\BCC\16BitDOS\PC\prtmacro.h"
+	"frconfig.h"
+	"..\portable\BCC\16BitDOS\flsh186\prtmacro.h"
+	"portmacro.h"
+	"portmacro.h"
+	"portmacro.h"
+	"portmacro.h"
+	"../../Source/portable/IAR/V850ES/portmacro.h"
+	"../../Source/portable/IAR/V850ES/portmacro.h"
+	"../../Source/portable/IAR/V850ES/portmacro.h"
+	"../../Source/portable/IAR/V850ES/portmacro.h"
+	"../../Source/portable/IAR/V850ES/portmacro.h"
+	"../../Source/portable/IAR/78K0R/portmacro.h"
+	"../../Source/portable/IAR/78K0R/portmacro.h"
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\portable\gcc\portmacro.h
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\mpu_wrappers.h
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\task.h
+	"list.h"
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\list.h
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\croutine.h
+	"list.h"
+
+1463761430 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\event_groups.c
+	<stdlib.h>
+	"FreeRTOS.h"
+	"task.h"
+	"timers.h"
+	"event_groups.h"
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\timers.h
+	"task.h"
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\event_groups.h
+	"timers.h"
+
+1463761430 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\list.c
+	<stdlib.h>
+	"FreeRTOS.h"
+	"list.h"
+
+1463761430 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\portable\gcc\port.c
+	"FreeRTOS.h"
+	"task.h"
+
+1463761430 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\portable\memmang\heap_4.c
+	<stdlib.h>
+	"FreeRTOS.h"
+	"task.h"
+
+1463761431 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\queue.c
+	<stdlib.h>
+	<string.h>
+	"FreeRTOS.h"
+	"task.h"
+	"queue.h"
+	"croutine.h"
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\queue.h
+
+1547385901 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\tasks.c
+	<stdlib.h>
+	<string.h>
+	"FreeRTOS.h"
+	"task.h"
+	"timers.h"
+	"StackMacros.h"
+	<stdio.h>
+	"tasks_test_access_functions.h"
+
+1463761430 g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\include\stackmacros.h
+
+1463761431 source:g:\project\stm32f407-embitz\test1-led\led-freert-0113-19\freertos\timers.c
+	<stdlib.h>
+	"FreeRTOS.h"
+	"task.h"
+	"queue.h"
+	"timers.h"
+

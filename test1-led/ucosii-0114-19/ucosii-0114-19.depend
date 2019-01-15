@@ -1,0 +1,194 @@
+# depslib dependency file v1.0
+1547515339 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\src\main.c
+	"stm32f4xx.h"
+	"ucos_ii.h"
+	"app_cfg.h"
+
+1547473224 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\inc\stm32f4xx.h
+	"core_cm4.h"
+	"system_stm32f4xx.h"
+	<stdint.h>
+	"stm32f4xx_conf.h"
+
+1547473224 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\cmsis\core_cm4.h
+	<stdint.h>
+	<core_cmInstr.h>
+	<core_cmFunc.h>
+	<core_cm4_simd.h>
+
+1547473224 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\cmsis\core_cminstr.h
+	<cmsis_iar.h>
+
+1547473224 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\cmsis\core_cmfunc.h
+	<cmsis_iar.h>
+
+1547473224 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\cmsis\core_cm4_simd.h
+	<cmsis_iar.h>
+
+1547473224 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\inc\system_stm32f4xx.h
+
+1547514816 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\src\startup_stm32f4xx.s
+
+1547473224 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\src\system_stm32f4xx.c
+	"stm32f4xx.h"
+
+1547475058 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-cpu\arm-cortex-m4\gnu\cpu_c.c
+	<cpu.h>
+	<cpu_core.h>
+	<lib_def.h>
+
+1342500808 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-cpu\arm-cortex-m4\gnu\cpu.h
+	<cpu_def.h>
+	<cpu_cfg.h>
+
+1342484824 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-cpu\cpu_def.h
+
+1352338248 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\config\cpu_cfg.h
+
+1349051132 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-cpu\cpu_core.h
+	<cpu.h>
+	<lib_def.h>
+	<cpu_cfg.h>
+	<lib_mem.h>
+	<lib_str.h>
+
+1355727754 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-lib\lib_def.h
+	<cpu_def.h>
+	<cpu.h>
+
+1355724518 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-lib\lib_mem.h
+	<cpu.h>
+	<cpu_core.h>
+	<lib_def.h>
+	<lib_cfg.h>
+
+1358830190 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\config\lib_cfg.h
+
+1355724508 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-lib\lib_str.h
+	<cpu.h>
+	<lib_def.h>
+	<lib_ascii.h>
+	<lib_cfg.h>
+	<stdio.h>
+
+1355724518 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-lib\lib_ascii.h
+	<cpu.h>
+	<lib_def.h>
+
+1342484806 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-cpu\cpu_core.c
+	<cpu_core.h>
+
+1355724518 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-lib\lib_ascii.c
+	<lib_ascii.h>
+
+1355724518 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-lib\lib_math.c
+	<lib_math.h>
+
+1355724518 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-lib\lib_math.h
+	<cpu.h>
+	<cpu_core.h>
+	<lib_def.h>
+
+1355724518 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-lib\lib_mem.c
+	<lib_mem.h>
+
+1355724518 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-lib\lib_str.c
+	<lib_str.h>
+
+1358932208 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\os_core.c
+	<ucos_ii.h>
+
+1547474926 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\ucos_ii.h
+	<os_cfg.h>
+	<os_cpu.h>
+
+1312982142 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\config\os_cfg.h
+
+1342422066 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\port\os_cpu.h
+
+1358932208 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\os_flag.c
+	<ucos_ii.h>
+
+1358932208 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\os_mbox.c
+	<ucos_ii.h>
+
+1358932208 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\os_mem.c
+	<ucos_ii.h>
+
+1358932208 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\os_mutex.c
+	<ucos_ii.h>
+
+1358932208 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\os_q.c
+	<ucos_ii.h>
+
+1358932208 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\os_sem.c
+	<ucos_ii.h>
+
+1358932208 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\os_task.c
+	<ucos_ii.h>
+
+1358932208 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\os_time.c
+	<ucos_ii.h>
+
+1547474331 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\port\os_cpu_c.c
+	<ucos_ii.h>
+	<lib_def.h>
+
+1342422080 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\port\os_dbg.c
+	<ucos_ii.h>
+
+1342501572 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\uc-cpu\arm-cortex-m4\gnu\cpu_a.s
+
+1358932208 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\core\os_tmr.c
+	<ucos_ii.h>
+
+1342422170 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\port\os_cpu_a.s
+
+1341552526 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\ports\os_cpu_c.c
+	<ucos_ii.h>
+	"stm32f4xx.h"
+
+1275532462 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\ucos_ii.h
+	<app_cfg.h>
+	<os_cfg.h>
+	<os_cpu.h>
+
+1547515325 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\config\app_cfg.h
+
+1312728454 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\ports\os_cpu.h
+
+1342422170 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\ports\os_cpu_a.s
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\ports\os_dbg.c
+	<ucos_ii.h>
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_core.c
+	<ucos_ii.h>
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_flag.c
+	<ucos_ii.h>
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_mbox.c
+	<ucos_ii.h>
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_mem.c
+	<ucos_ii.h>
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_mutex.c
+	<ucos_ii.h>
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_q.c
+	<ucos_ii.h>
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_sem.c
+	<ucos_ii.h>
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_task.c
+	<ucos_ii.h>
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_time.c
+	<ucos_ii.h>
+
+1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_tmr.c
+	<ucos_ii.h>
+
