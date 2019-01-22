@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1547515339 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\src\main.c
+1547977159 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\src\main.c
 	"stm32f4xx.h"
 	"ucos_ii.h"
 	"app_cfg.h"
+	"stdio.h"
 
 1547473224 g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\inc\stm32f4xx.h
 	"core_cm4.h"
@@ -162,7 +163,7 @@
 1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\ports\os_dbg.c
 	<ucos_ii.h>
 
-1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_core.c
+1547528708 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_core.c
 	<ucos_ii.h>
 
 1275532462 source:g:\project\stm32f407-embitz\test1-led\ucosii-0114-19\ucosii\source\os_flag.c

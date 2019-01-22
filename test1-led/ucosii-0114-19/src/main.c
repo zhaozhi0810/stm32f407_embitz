@@ -14,7 +14,7 @@
 #include "stm32f4xx.h"
 #include "ucos_ii.h"
 #include "app_cfg.h"
-
+#include "stdio.h"
 
 static  OS_STK App_TaskStartStk[APP_TASK_START_STK_SIZE];	            //开始任务对应的堆栈
 static  OS_STK App_Task1Stk[APP_TASK_1_STK_SIZE];			            //第一个任务对应的堆栈
@@ -155,6 +155,7 @@ static  void  App_Task1(void *p_arg)
         OSTimeDly(500);
         GPIOE->BSRRH = GPIO_BSRR_BS_13;
         OSTimeDly(500);
+        printf("12345\n");
     }
 }
 
