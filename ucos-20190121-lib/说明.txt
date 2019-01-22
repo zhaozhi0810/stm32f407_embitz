@@ -1,0 +1,174 @@
+平台
+开发板：  stm32f407ve
+操作系统：  ucosii 2.92
+IDE ：     embitz 1.11
+
+
+20190122
+浮点数的问题：
+1.无法使用硬件浮点运算
+      a. 需要在project build option中设置
+           #define
+           __FPU_USED=1
+
+          因为在system_stm32f4xx.c 的215行 SystemInit函数
+          如果需要使用fpu的话，需要__FPU_USED == 1宏定义
+
+      b.即使这样还是出现硬件错误，是任务压栈出栈（需要修改OS_CPU_A.S文件和os_cpu_c.c文件）
+       需要修改OS_CPU_A.S文件  中  OS_CPU_PendSVHandler函数
+       
+        OS_CPU_PendSVHandler:
+            CPSID   I                                                   @ Prevent interruption during context switch
+
+      *      AND		LR, LR, #0xFFFFFFE0 								@Use FPU, MSP.    //zhaozhi
+      *      ORR		LR, LR, #0x9                                            @zhaozhi
+
+            MRS     R0, PSP                                             @ PSP is process stack pointer
+            CBZ     R0, OS_CPU_PendSVHandler_nosave                     @ Skip register save the first time
+
+            @Is the task using the FPU context? If so, push high vfp registers.
+       *     tst r14, #0x10                                          @zhaozhi
+       *     it eq                                                       @zhaozhi
+       *     vstmdbeq r0!, {s16-s31}                         @zhaozhi
+
+            SUBS    R0, R0, #0x20                                       @ Save remaining regs r4-11 on process stack
+            STM     R0, {R4-R11}
+
+            LDR     R1, =OSTCBCur                                       @ OSTCBCur->OSTCBStkPtr = SP;
+            LDR     R1, [R1]
+            STR     R0, [R1]                                            @ R0 is SP of process being switched out
+
+                                                                        @ At this point, entire context of process has been saved
+        OS_CPU_PendSVHandler_nosave:
+            PUSH    {R14}                                               @ Save LR exc_return value
+            LDR     R0, =OSTaskSwHook                                   @ OSTaskSwHook();
+            BLX     R0
+            POP     {R14}
+
+            LDR     R0, =OSPrioCur                                      @ OSPrioCur = OSPrioHighRdy;
+            LDR     R1, =OSPrioHighRdy
+            LDRB    R2, [R1]
+            STRB    R2, [R0]
+
+            LDR     R0, =OSTCBCur                                       @ OSTCBCur  = OSTCBHighRdy;
+            LDR     R1, =OSTCBHighRdy
+            LDR     R2, [R1]
+            STR     R2, [R0]
+
+            LDR     R0, [R2]                                            @ R0 is new process SP; SP = OSTCBHighRdy->OSTCBStkPtr;
+            LDM     R0, {R4-R11}                                        @ Restore r4-11 from new process stack
+            ADDS    R0, R0, #0x20
+
+            @Is the task using the FPU context? If so, pop the high vfp registers too.
+       *     tst r14, #0x10                                          @zhaozhi
+       *     it eq                                                       @zhaozhi
+       *     vldmiaeq r0!, {s16-s31}                            @zhaozhi
+
+            MSR     PSP, R0                                             @ Load PSP with new process SP
+            ORR     LR, LR, #0x04                                       @ Ensure exception return uses process stack
+            CPSIE   I
+            BX      LR                                                  @ Exception return will restore remaining context
+
+        .end       
+       
+        还有os_cpu_c.c OSTaskStkInit函数
+        
+        OS_STK *OSTaskStkInit (void (*task)(void *p_arg), void *p_arg, OS_STK *ptos, INT16U opt)
+        {
+            OS_STK *stk;
+
+
+            (void)opt;                                   /* 'opt' is not used, prevent warning                 */
+            stk       = ptos;                            /* Load stack pointer                                 */
+
+                                                         /* Registers stacked as if auto-saved on exception    */
+        #if(__FPU_PRESENT == 1)&&(__FPU_USED == 1)
+                *(--stk) = (INT32U)0x00001000L; //FPSCR
+                *(--stk) = (INT32U)0x00000015L; //s15
+                *(--stk) = (INT32U)0x00000014L; //s14
+                *(--stk) = (INT32U)0x00000013L; //s13
+                *(--stk) = (INT32U)0x00000012L; //s12
+                *(--stk) = (INT32U)0x00000011L; //s11
+                *(--stk) = (INT32U)0x00000010L; //s10
+                *(--stk) = (INT32U)0x00000009L; //s9
+                *(--stk) = (INT32U)0x00000008L; //s8
+                *(--stk) = (INT32U)0x00000007L; //s7
+                *(--stk) = (INT32U)0x00000006L; //s6
+                *(--stk) = (INT32U)0x00000005L; //s5
+                *(--stk) = (INT32U)0x00000004L; //s4
+                *(--stk) = (INT32U)0x00000003L; //s3
+                *(--stk) = (INT32U)0x00000002L; //s2
+                *(--stk) = (INT32U)0x00000001L; //s1
+                *(--stk) = (INT32U)0x00000000L; //s0
+               *(--stk)  = (INT32U)0x01000000uL;            /* xPSR                                               */
+        #else
+            *(stk)    = (INT32U)0x01000000uL;            /* xPSR                                               */
+        #endif
+
+            *(--stk)  = (INT32U)task;                    /* Entry Point                                        */
+            *(--stk)  = (INT32U)OS_TaskReturn;           /* R14 (LR)                                           */
+            *(--stk)  = (INT32U)0x12121212uL;            /* R12                                                */
+            *(--stk)  = (INT32U)0x03030303uL;            /* R3                                                 */
+            *(--stk)  = (INT32U)0x02020202uL;            /* R2                                                 */
+            *(--stk)  = (INT32U)0x01010101uL;            /* R1                                                 */
+            *(--stk)  = (INT32U)p_arg;                   /* R0 : argument                                      */
+
+                                                         /* Remaining registers saved on process stack         */
+        #if(__FPU_PRESENT == 1)&&(__FPU_USED == 1)
+                *--stk = (INT32U)0x31313131u;                        /*S31                                                     */
+                *--stk = (INT32U)0x30303030u;                        /*S30                                                     */
+                *--stk = (INT32U)0x29292929u;                        /*S29                                                     */
+                *--stk = (INT32U)0x28282828u;                        /*S28                                                     */
+                *--stk = (INT32U)0x27272727u;                        /*S27                                                     */
+                *--stk = (INT32U)0x26262626u;                        /*S26                                                     */
+                *--stk = (INT32U)0x25252525u;                        /*S25                                                     */
+                *--stk = (INT32U)0x24242424u;                        /*S24                                                     */
+                *--stk = (INT32U)0x23232323u;                        /*S23                                                     */
+                *--stk = (INT32U)0x22222222u;                        /*S22                                                     */
+                *--stk = (INT32U)0x21212121u;                        /*S21                                                     */
+                *--stk = (INT32U)0x20202020u;                        /*S20                                                     */
+                *--stk = (INT32U)0x19191919u;                        /*S19                                                     */
+                *--stk = (INT32U)0x18181818u;                        /*S18                                                     */
+                *--stk = (INT32U)0x17171717u;                        /*S17                                                     */
+                *--stk = (INT32U)0x16161616u;                        /*S16                                                     */
+        #endif
+
+            *(--stk)  = (INT32U)0x11111111uL;            /* R11                                                */
+            *(--stk)  = (INT32U)0x10101010uL;            /* R10                                                */
+            *(--stk)  = (INT32U)0x09090909uL;            /* R9                                                 */
+            *(--stk)  = (INT32U)0x08080808uL;            /* R8                                                 */
+            *(--stk)  = (INT32U)0x07070707uL;            /* R7                                                 */
+            *(--stk)  = (INT32U)0x06060606uL;            /* R6                                                 */
+            *(--stk)  = (INT32U)0x05050505uL;            /* R5                                                 */
+            *(--stk)  = (INT32U)0x04040404uL;            /* R4                                                 */
+
+            return (stk);
+        }
+
+2. 浮点数的运算，使用硬件浮点加快了浮点数的运算速度，但是增加了任务切换压栈的时间（因为增加了32个寄存器的压栈和出栈）
+
+3.浮点数的运算的优先级不能太低，太低无法打印数据
+
+4.串口的输出部分
+   printf无法打印到串口
+   需要初始化串口，并且重写_write函数
+   //串口输出函数接口
+    //20190121 zhaozhi 增加
+    int _write (int fd, char *pBuffer, int size)
+    {
+        BSP_UartWrite(COM1,pBuffer,size);
+        return size;
+    }
+
+
+5.如果需要打印小数，还需要设置
+   小数部分是不支持打印的，即printf %f是无法识别的。
+   在Project build option
+     linker settings
+       linker flags
+         library selection
+           勾上  use float printf with Nano-branch
+    注意： 增加这个库，会增加9k多的代码量
+
+
+
