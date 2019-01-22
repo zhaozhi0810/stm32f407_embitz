@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<EmBitz_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="bsp\inc\BSP_Uart.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4461" topLine="123" />
+		</Cursor>
+	</File>
+	<File name="bsp\src\BSP_Led.c" open="1" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1257" topLine="30" />
+		</Cursor>
+	</File>
+	<File name="bsp\src\BSP_Uart.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14603" topLine="732" />
+		</Cursor>
+	</File>
+	<File name="common\src\float_printf.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="231" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="inc\stm32f4xx.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5384" topLine="131" />
+		</Cursor>
+	</File>
+	<File name="SPL\inc\stm32f4xx_rcc.h" open="1" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="22301" topLine="423" />
+		</Cursor>
+	</File>
+	<File name="SPL\src\stm32f4xx_usart.c" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="13358" topLine="232" />
+		</Cursor>
+	</File>
+	<File name="src\main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6791" topLine="189" />
+		</Cursor>
+	</File>
+	<File name="src\startup_stm32f4xx.S" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9728" topLine="187" />
+		</Cursor>
+	</File>
+	<File name="src\system_stm32f4xx.c" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9185" topLine="215" />
+		</Cursor>
+	</File>
+	<File name="ucosii\CONFIG\app_cfg.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2569" topLine="50" />
+		</Cursor>
+	</File>
+	<File name="ucosii\CONFIG\os_cfg.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2076" topLine="34" />
+		</Cursor>
+	</File>
+	<File name="ucosii\Ports\os_cpu.h" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5350" topLine="107" />
+		</Cursor>
+	</File>
+	<File name="ucosii\Ports\os_cpu_a.S" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4396" topLine="88" />
+		</Cursor>
+	</File>
+	<File name="ucosii\Ports\os_cpu_c.c" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9867" topLine="311" />
+		</Cursor>
+	</File>
+	<File name="ucosii\Source\os_core.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="75870" topLine="1763" />
+		</Cursor>
+	</File>
+	<File name="ucosii\Source\os_task.c" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="17756" topLine="368" />
+		</Cursor>
+	</File>
+	<File name="ucosii\Source\os_time.c" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2661" topLine="44" />
+		</Cursor>
+	</File>
+	<File name="ucosii\Source\ucos_ii.h" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="52135" topLine="1078" />
+		</Cursor>
+	</File>
+</EmBitz_layout_file>

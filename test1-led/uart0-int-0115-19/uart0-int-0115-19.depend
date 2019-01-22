@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1547556612 source:g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\src\startup_stm32f4xx.s
+
+1547556612 source:g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\src\system_stm32f4xx.c
+	"stm32f4xx.h"
+
+1547556612 g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\inc\stm32f4xx.h
+	"core_cm4.h"
+	"system_stm32f4xx.h"
+	<stdint.h>
+	"stm32f4xx_conf.h"
+
+1547556612 g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\cmsis\core_cm4.h
+	<stdint.h>
+	<core_cmInstr.h>
+	<core_cmFunc.h>
+	<core_cm4_simd.h>
+
+1547556612 g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\cmsis\core_cminstr.h
+	<cmsis_iar.h>
+
+1547556612 g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\cmsis\core_cmfunc.h
+	<cmsis_iar.h>
+
+1547556612 g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\cmsis\core_cm4_simd.h
+	<cmsis_iar.h>
+
+1547556612 g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\inc\system_stm32f4xx.h
+
+1547557064 source:g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\src\uart1.c
+	<stm32f4xx.h>
+	"uart1.h"
+
+1547557052 g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\inc\uart1.h
+
+1547557005 source:g:\project\stm32f407-embitz\test1-led\uart0-int-0115-19\src\main.c
+	<stm32f4xx.h>
+	"uart1.h"
+
