@@ -56,8 +56,8 @@
 #define  APP_TASK_1_PRIO                                   5
 #define  LED2_TASK_PRIO                                   7
 #define  APP_TASK_Printf_PRIO                              4
-
-
+#define  TTY_TASK_PRIO                              8
+#define  PRINT_TASK_PRIO                              60     //比较低的优先级
 #define  OS_TASK_TMR_PRIO                (OS_LOWEST_PRIO - 2)
 
 /*
@@ -71,6 +71,9 @@
 #define  APP_TASK_1_STK_SIZE							 128
 #define  LED2_TASK_STK_SIZE							 128
 #define  APP_TASK_Printf_STK_SIZE							 512
+#define TTY_TASK_STK_SIZE                              512
+#define PRINT_TASK_STK_SIZE                         256
+
 /*
 *********************************************************************************************************
 *                                                  LIB

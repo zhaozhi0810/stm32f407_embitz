@@ -473,7 +473,7 @@
 1548038249 g:\project\stm32f407-embitz\ucos-20190121-lib\spl\inc\stm32f4xx_wwdg.h
 	"stm32f4xx.h"
 
-1548063204 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_uart.c
+1548513350 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_uart.c
 	<string.h>
 	"misc.h"
 	"stm32f4xx_gpio.h"
@@ -486,7 +486,7 @@
 1547645417 g:\project\stm32f407-embitz\ucos-20190121-lib\common\inc\queue.h
 	"stdint.h"
 
-1547975813 g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\inc\bsp_uart.h
+1548146434 g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\inc\bsp_uart.h
 	<stdint.h>
 
 1548127893 source:g:\project\stm32f407-embitz\ucos-20190121-lib\common\src\float_printf.c
@@ -608,7 +608,7 @@
 	"stm32f4xx_wwdg.h"
 	"stm32f4xx_rcc.h"
 
-1548136743 source:g:\project\stm32f407-embitz\ucos-20190121-lib\src\main.c
+1548513619 source:g:\project\stm32f407-embitz\ucos-20190121-lib\src\main.c
 	"stm32f4xx_conf.h"
 	"Queue.h"
 	"BSP_Uart.h"
@@ -617,7 +617,7 @@
 	"ucos_ii.h"
 	"app_cfg.h"
 	"stdio.h"
-	"print_float.h"
+	<string.h>
 
 1548056152 g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\inc\bsp_led.h
 	"stm32f4xx_gpio.h"
@@ -627,7 +627,7 @@
 	<os_cfg.h>
 	<os_cpu.h>
 
-1548135631 g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\config\app_cfg.h
+1548512885 g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\config\app_cfg.h
 
 1312982142 g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\config\os_cfg.h
 
@@ -673,9 +673,9 @@
 1275532462 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_task.c
 	<ucos_ii.h>
 
-1275532462 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_time.c
+1548164009 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_time.c
 	<ucos_ii.h>
 
-1275532462 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_tmr.c
+1548164030 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_tmr.c
 	<ucos_ii.h>
 

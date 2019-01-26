@@ -68,7 +68,7 @@ void  OSTimeDly (INT32U ticks)
         OS_Sched();                              /* Find next task to run!                             */
     }
 }
-/*$PAGE*/
+/*$PAGE*/
 /*
 *********************************************************************************************************
 *                                     DELAY TASK FOR SPECIFIED TIME
@@ -204,7 +204,7 @@ INT8U  OSTimeDlyResume (INT8U prio)
     return (OS_ERR_NONE);
 }
 #endif
-/*$PAGE*/
+/*$PAGE*/
 /*
 *********************************************************************************************************
 *                                         GET CURRENT SYSTEM TIME
@@ -261,4 +261,4 @@ void  OSTimeSet (INT32U ticks)
     OS_EXIT_CRITICAL();
 }
 #endif
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  
+

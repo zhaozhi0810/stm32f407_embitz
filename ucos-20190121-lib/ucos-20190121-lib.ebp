@@ -102,11 +102,7 @@
 		<Unit filename="cmsis\core_cm4_simd.h" />
 		<Unit filename="cmsis\core_cmFunc.h" />
 		<Unit filename="cmsis\core_cmInstr.h" />
-		<Unit filename="common\inc\print_float.h" />
 		<Unit filename="common\inc\Queue.h" />
-		<Unit filename="common\src\float_printf.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="common\src\Queue.c">
 			<Option compilerVar="CC" />
 		</Unit>

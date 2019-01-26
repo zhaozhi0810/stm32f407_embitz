@@ -20,19 +20,29 @@
 #include "ucos_ii.h"
 #include "app_cfg.h"
 #include "stdio.h"
-#include "print_float.h"
+
+#include <string.h>
 
 
 static  OS_STK App_TaskStartStk[APP_TASK_START_STK_SIZE];	            //开始任务对应的堆栈
 static  OS_STK App_Task1Stk[APP_TASK_1_STK_SIZE];			            //第一个任务对应的堆栈
 static  OS_STK Led2_TaskStk[LED2_TASK_STK_SIZE];			            //第一个任务对应的堆栈
 static  OS_STK Float_TaskStk[APP_TASK_Printf_STK_SIZE];			            //第一个任务对应的堆栈
+static  OS_STK Tty_TaskStk[TTY_TASK_STK_SIZE];			            //第一个任务对应的堆栈
+static  OS_STK Print_TaskStk[PRINT_TASK_STK_SIZE];			            //第一个任务对应的堆栈
 
 static  void  App_TaskStart(void *p_arg);                               //开始任务
 static  void  App_TaskCreate(void);							            //创建子任务函数
 static  void  App_Task1(void *p_arg);						            //第一个任务
 static  void  Led2_Task(void *p_arg);						            //第一个任务
 static  void  Float_print_Task(void *p_arg);                            //浮点数打印任务
+
+//打印任务，打印缓存中的数据
+static  void  print_Task(void *p_arg);
+
+
+
+static  void  tty_Task(void *p_arg);                            //浮点数打印任务
 
 /*********************************************************************************
 *描述：读取CPU的寄存器来确定CPU时钟频率的芯片
@@ -129,6 +139,20 @@ static  void App_TaskCreate(void)
                          (OS_STK        * )&Float_TaskStk[APP_TASK_Printf_STK_SIZE- 1],
                          (INT8U           ) APP_TASK_Printf_PRIO);
 
+
+    OSTaskCreate((void (*)(void *)) tty_Task,         //Create 串口终端接收处理
+                         (void          * ) 0,
+                         (OS_STK        * )&Tty_TaskStk[TTY_TASK_STK_SIZE- 1],
+                         (INT8U           ) TTY_TASK_PRIO);
+
+
+
+    OSTaskCreate((void (*)(void *)) print_Task,         //Create 串口终端接收处理
+                         (void          * ) 0,
+                         (OS_STK        * )&Print_TaskStk[PRINT_TASK_STK_SIZE- 1],
+                         (INT8U           ) PRINT_TASK_PRIO);
+
+
 }
 /*************************************************************************************
   * 函数名称：App_Task1()
@@ -161,6 +185,7 @@ static  void  App_Task1(void *p_arg)
 static  void  Led2_Task(void *p_arg)
 {
 	(void)p_arg;
+	int i = 0;
 
 	while(1)
     {
@@ -168,7 +193,11 @@ static  void  Led2_Task(void *p_arg)
         OSTimeDly(100);
         GPIOE->BSRRH = GPIO_BSRR_BS_14;
         OSTimeDly(100);
-        printf("Led2_Task---0121\n\r");
+ //       i++;
+        printf("Led2_Task---0121\r");
+        printf("i = %d\r",i++);
+        printf("Led2_Task---0126\r");
+
  //       BSP_UartWrite(COM1,(uint8_t *)"Led2_Task\n",10);
     }
 }
@@ -195,10 +224,64 @@ static  void  Float_print_Task(void *p_arg)
         num += 0.1f;
         x += 1;
         printf("num = %f\n\r",x+num);
-//        PrintFloat(num);
 
+        OSTimeDly(4000);
+    }
+}
+
+
+
+/*************************************************************************************
+  * 函数名称：串口终端接收处理函数()
+  * 参数    ：void
+  * 返回值  ：void
+  * 描述    ：第一个任务执行程序
+***************************************************************************************/
+static  void  tty_Task(void *p_arg)
+{
+    char rec_buf[128];
+    int ret;
+
+	(void)p_arg;
+
+	while(1)
+    {
+        memset(rec_buf,0,128);
+        ret =  uart1_read (rec_buf,128);
+
+        if(ret)
+        {
+            //忽略空回车
+            if(strcmp(rec_buf,"\n\r") == 0 || strcmp(rec_buf,"\r\n") == 0 ||
+                strcmp(rec_buf,"\r") == 0 || strcmp(rec_buf,"\n") == 0)
+            {
+                OSTimeDly(400);
+                continue;
+            }
+//            printf("ret = %d\n",ret);
+            printf("buf = %s\n",rec_buf);   //接收的命令打印出来
+        }
         OSTimeDly(400);
     }
 }
+
+
+
+
+
+
+//打印任务，打印缓存中的数据
+static  void  print_Task(void *p_arg)
+{
+    (void)p_arg;
+
+	while(1)
+    {
+        send_uart1();
+        OSTimeDly(100);
+    }
+}
+
+
 
 

@@ -483,7 +483,7 @@
  uint32_t BSP_UartRead(uint8_t COM, uint8_t *buffter, uint32_t len);
  uint32_t BSP_UartTxIdleState(uint8_t COM);
 
-
+int uart1_read (char *pBuffer, int size);
 
  #endif
 

@@ -26,6 +26,10 @@
 #include "BSP_Uart.h"
 
 
+//20190126
+static uint8_t TX_BUFF[BSP_COM1_Tx_BUFF_SIZE] = {0};    //发送缓存，printf打印的数据写入该缓存
+static QUEUE8_TYPE TX_QUEUE = {0};
+
 #if COM1_EN
 static uint8_t COM1_TX_BUFF[BSP_COM1_Tx_BUFF_SIZE] = {0};
 static uint8_t COM1_RX_BUFF[BSP_COM1_Rx_BUFF_SIZE] = {0};
@@ -693,13 +697,13 @@ void BSP_UartOpen(uint8_t COM,  uint32_t baud, uint8_t data, uint8_t stop, uint8
     DMA_InitTypeDef DMA_InitStructure;
 
     /* DMA clock enable */
-    RCC_AHB1PeriphClockCmd(COM_DMA_CLK[COM], ENABLE);
+    RCC_AHB1PeriphClockCmd(COM_DMA_CLK[COM], ENABLE);   //DMA时钟使能
 
     /* Enable GPIO clock */
-    RCC_AHB1PeriphClockCmd(COM_TX_PORT_CLK[COM] | COM_RX_PORT_CLK[COM], ENABLE);
+    RCC_AHB1PeriphClockCmd(COM_TX_PORT_CLK[COM] | COM_RX_PORT_CLK[COM], ENABLE);    //UART对应的GPIO时钟使能
 
     /* Enable UART clock */
-    if ((COM_USART[COM] == USART1) || (COM_USART[COM] == USART6))
+    if ((COM_USART[COM] == USART1) || (COM_USART[COM] == USART6))     //UART模块时钟使能
     {
         RCC_APB2PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
     }
@@ -707,12 +711,12 @@ void BSP_UartOpen(uint8_t COM,  uint32_t baud, uint8_t data, uint8_t stop, uint8
     {
         RCC_APB1PeriphClockCmd(COM_USART_CLK[COM], ENABLE);
     }
-    USART_DeInit(COM_USART[COM]);
+    USART_DeInit(COM_USART[COM]);     //去除uart的初始化设置，为后面的设置做准备
 
     /* Connect PXx to USARTx_Tx*/
-    GPIO_PinAFConfig(COM_TX_PORT[COM], COM_TX_AF_PIN[COM], COM_AF[COM]);
+    GPIO_PinAFConfig(COM_TX_PORT[COM], COM_TX_AF_PIN[COM], COM_AF[COM]);     //配置GPIO为功能引脚
     /* Connect PXx to USARTx_Rx*/
-    GPIO_PinAFConfig(COM_RX_PORT[COM], COM_RX_AF_PIN[COM], COM_AF[COM]);
+    GPIO_PinAFConfig(COM_RX_PORT[COM], COM_RX_AF_PIN[COM], COM_AF[COM]);    //配置GPIO为功能引脚
 
     /* Configure USART Tx as alternate function push-pull */
     GPIO_InitStructure.GPIO_Pin = COM_TX_PIN[COM];
@@ -720,11 +724,11 @@ void BSP_UartOpen(uint8_t COM,  uint32_t baud, uint8_t data, uint8_t stop, uint8
     GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
-    GPIO_Init(COM_TX_PORT[COM], &GPIO_InitStructure);
+    GPIO_Init(COM_TX_PORT[COM], &GPIO_InitStructure);            //GPIO  TX初始化
 
     /* Configure USART Rx as input floating */
     GPIO_InitStructure.GPIO_Pin = COM_RX_PIN[COM];
-    GPIO_Init(COM_RX_PORT[COM], &GPIO_InitStructure);
+    GPIO_Init(COM_RX_PORT[COM], &GPIO_InitStructure);        //GPIO  RX初始化
 
     /* USART configuration */
     USART_StructInit(&USART_InitStructure);
@@ -733,47 +737,48 @@ void BSP_UartOpen(uint8_t COM,  uint32_t baud, uint8_t data, uint8_t stop, uint8
     USART_InitStructure.USART_WordLength = (data == 9)? USART_WordLength_9b : USART_WordLength_8b;
     USART_InitStructure.USART_Parity = (parity < 3)? parityArr[parity] : USART_Parity_No;
     USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-    USART_Init(COM_USART[COM], &USART_InitStructure);
+    USART_Init(COM_USART[COM], &USART_InitStructure);              //串口的初始化，包括波特率，停止位，数据位，奇偶校验等
 
     /* Enable USART DMA_TX*/
-    USART_DMACmd(COM_USART[COM], USART_DMAReq_Tx, ENABLE);
+    USART_DMACmd(COM_USART[COM], USART_DMAReq_Tx, ENABLE);      //DMA方式使能，发送DMA
 
-    USART_ITConfig(COM_USART[COM], USART_IT_RXNE, ENABLE);
+    USART_ITConfig(COM_USART[COM], USART_IT_RXNE, ENABLE);            //接收中断使能，接收到数据就会中断
 
      /* Enable USART */
-    USART_Cmd(COM_USART[COM], ENABLE);
+    USART_Cmd(COM_USART[COM], ENABLE);   //开启串口
 
     NvicInitdef.NVIC_IRQChannel = COM_RX_IRQn[COM];
     NvicInitdef.NVIC_IRQChannelPreemptionPriority = 3;
     NvicInitdef.NVIC_IRQChannelSubPriority = 0;
     NvicInitdef.NVIC_IRQChannelCmd = ENABLE;
-    NVIC_Init( &NvicInitdef );
+    NVIC_Init( &NvicInitdef );                          //配置中断
 
-    QUEUE_PacketCreate(COM_RX_QUEUE[COM], COM_RX_BUFF[COM], COM_RX_BUFF_SIZE[COM]);
+    QUEUE_PacketCreate(COM_RX_QUEUE[COM], COM_RX_BUFF[COM], COM_RX_BUFF_SIZE[COM]);   //初始化接收缓存队列
+    QUEUE_PacketCreate(&TX_QUEUE, TX_BUFF, BSP_COM1_Tx_BUFF_SIZE);   //初始化发送缓存队列
     /* -------------------------------DMA发送------------------------------  */
     /* DMA StreamX Config */
-    DMA_DeInit(COM_DMA_TX_STREAM[COM]);
+    DMA_DeInit(COM_DMA_TX_STREAM[COM]);       //DMA去除设置
 
     /* DMA StreamX disable */
-    DMA_Cmd(COM_DMA_TX_STREAM[COM], DISABLE);
+    DMA_Cmd(COM_DMA_TX_STREAM[COM], DISABLE);    //DMA禁止发送
 
     DMA_StructInit(&DMA_InitStructure);
-    DMA_InitStructure.DMA_Channel = COM_DMA_TX_CHANNEL[COM];
-    DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)COM_DMA_DR_BASE[COM];
-    DMA_InitStructure.DMA_Memory0BaseAddr = (u32)COM_TX_BUFF[COM];
-    DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;
-    DMA_InitStructure.DMA_BufferSize = 0;
-    DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-    DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
-    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
-    DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
-    DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
-    DMA_InitStructure.DMA_Priority = DMA_Priority_High;
-    DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Enable;
-    DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;
+    DMA_InitStructure.DMA_Channel = COM_DMA_TX_CHANNEL[COM];                 //DMA通道设置
+    DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)COM_DMA_DR_BASE[COM];    //DMA外部设备的地址
+    DMA_InitStructure.DMA_Memory0BaseAddr = (u32)COM_TX_BUFF[COM];              //DMA内存地址
+    DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;                              //DMA的方向是从内存到外设
+    DMA_InitStructure.DMA_BufferSize = 0;                                                                   //DMA的缓存字节为0，没有数据需要发送
+    DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;                     //外设地址不递增
+    DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;                             //内存地址递增
+    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;         //外设数据宽度 字节宽度
+    DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;              //内存数据宽度，字节宽度
+    DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;                                       // 正常模式，即满了就不在接收了，而不是循环存储
+    DMA_InitStructure.DMA_Priority = DMA_Priority_High;                                         //DMA优先级高
+    DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Enable;                           //FIFO打开
+    DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;                   //FIFO门槛，满
     DMA_Init(COM_DMA_TX_STREAM[COM], &DMA_InitStructure);
 
-    DMA_FlowControllerConfig(COM_DMA_TX_STREAM[COM], DMA_FlowCtrl_Memory);    //控制流 取决于缓存大小
+    DMA_FlowControllerConfig(COM_DMA_TX_STREAM[COM], DMA_FlowCtrl_Memory);    //控制流 取决于内存缓存
 }
 
 
@@ -879,6 +884,8 @@ void _IRQHandler(uint8_t COM)
     {
         u8 ch = USART_ReceiveData(COM_USART[COM]);  //读数据后 会自动清空标志
         QUEUE_PacketIn(COM_RX_QUEUE[COM], &ch, 1);
+//        BSP_UartWrite(COM, &ch, 1);  //数据回显
+        USART_SendData(COM_USART[COM], ch);  //数据回显
     }
 }
 
@@ -998,12 +1005,70 @@ void UART8_IRQHandler(void)
 
 
 
+
+
+
+
 //串口输出函数接口
 //20190121 zhaozhi 增加
 int _write (int fd, char *pBuffer, int size)
 {
-    BSP_UartWrite(COM1,pBuffer,size);
+//    BSP_UartWrite(COM1,pBuffer,size);
+    QUEUE_PacketIn(&TX_QUEUE,pBuffer,size);  //将要打印的数据存放到队列中
     return size;
 }
+
+
+
+void send_uart1(void)
+{
+    int len = 1024;
+    if(TX_QUEUE.pStart != TX_QUEUE.pEnd)
+    {
+          if ((DMA_GetCurrDataCounter(COM_DMA_TX_STREAM[COM1]) == 0)
+        && (DMA_FIFOStatus_Empty == DMA_GetFIFOStatus(COM_DMA_TX_STREAM[COM1])));
+        {
+            uint32_t resLen = 0;
+
+            USART_ClearFlag(COM_USART[COM1], USART_FLAG_TC);
+            resLen = (COM_TX_BUFF_SIZE[COM1] > len)? len : COM_TX_BUFF_SIZE[COM1];
+//            memcpy((void *)(COM_TX_BUFF[COM]), buffter, resLen);
+            QUEUE_PacketOut(&TX_QUEUE,COM_TX_BUFF[COM1],resLen);   //将发送的数据移出队列发送出去
+            DMA_Cmd(COM_DMA_TX_STREAM[COM1], DISABLE);
+            DMA_ClearFlag(COM_DMA_TX_STREAM[COM1], COM_DMA_TX_FLAG[COM1]);
+            DMA_SetCurrDataCounter(COM_DMA_TX_STREAM[COM1], resLen);
+            DMA_Cmd(COM_DMA_TX_STREAM[COM1], ENABLE);
+
+            return ;
+        }
+    }
+}
+
+
+
+
+int uart1_read (char *pBuffer, int size)
+{
+    int ret ;
+    if((ret = QUEUE_PacketDoubleCharSplit(COM_RX_QUEUE[COM1],'\n','\r',pBuffer,size)) != 0)
+    {
+        return ret;
+    }
+    else if((ret = QUEUE_PacketDoubleCharSplit(COM_RX_QUEUE[COM1],'\r','\n',pBuffer,size)) != 0)
+    {
+        return ret;
+    }
+    else if((ret = QUEUE_PacketCharSplit(COM_RX_QUEUE[COM1],'\r',pBuffer,size))!= 0)
+    {
+        return ret;
+    }
+    else if((ret = QUEUE_PacketCharSplit(COM_RX_QUEUE[COM1],'\n',pBuffer,size))!= 0)
+    {
+        return ret;
+    }
+    return 0;
+}
+
+
 
 

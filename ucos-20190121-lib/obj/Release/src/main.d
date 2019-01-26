@@ -14,4 +14,4 @@ obj\release\src\main.o: src\main.c inc/stm32f4xx_conf.h \
  SPL\inc/stm32f4xx_usart.h SPL\inc/stm32f4xx_wwdg.h SPL\inc/misc.h \
  common\inc/Queue.h bsp\inc/BSP_Uart.h bsp\inc/BSP_Led.h \
  ucosii\Source/ucos_ii.h ucosii\CONFIG/app_cfg.h ucosii\CONFIG/os_cfg.h \
- ucosii\Ports/os_cpu.h common\inc/print_float.h
+ ucosii\Ports/os_cpu.h
