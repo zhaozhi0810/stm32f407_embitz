@@ -473,7 +473,7 @@
 1548038249 g:\project\stm32f407-embitz\ucos-20190121-lib\spl\inc\stm32f4xx_wwdg.h
 	"stm32f4xx.h"
 
-1548513350 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_uart.c
+1548594489 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_uart.c
 	<string.h>
 	"misc.h"
 	"stm32f4xx_gpio.h"

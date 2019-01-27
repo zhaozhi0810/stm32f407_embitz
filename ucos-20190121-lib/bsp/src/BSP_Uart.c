@@ -1022,24 +1022,24 @@ int _write (int fd, char *pBuffer, int size)
 
 void send_uart1(void)
 {
-    int len = 1024;
-    if(TX_QUEUE.pStart != TX_QUEUE.pEnd)
+    int len = 1;
+    if(TX_QUEUE.pStart != TX_QUEUE.pEnd)       //如果发送队列中有数据，就准备发送
     {
           if ((DMA_GetCurrDataCounter(COM_DMA_TX_STREAM[COM1]) == 0)
-        && (DMA_FIFOStatus_Empty == DMA_GetFIFOStatus(COM_DMA_TX_STREAM[COM1])));
+        && (DMA_FIFOStatus_Empty == DMA_GetFIFOStatus(COM_DMA_TX_STREAM[COM1])))  //检查是不是有数据正在发送
         {
             uint32_t resLen = 0;
 
             USART_ClearFlag(COM_USART[COM1], USART_FLAG_TC);
-            resLen = (COM_TX_BUFF_SIZE[COM1] > len)? len : COM_TX_BUFF_SIZE[COM1];
+ //           resLen = (COM_TX_BUFF_SIZE[COM1] > len)? len : COM_TX_BUFF_SIZE[COM1];
 //            memcpy((void *)(COM_TX_BUFF[COM]), buffter, resLen);
-            QUEUE_PacketOut(&TX_QUEUE,COM_TX_BUFF[COM1],resLen);   //将发送的数据移出队列发送出去
+            len = QUEUE_PacketOut(&TX_QUEUE,COM_TX_BUFF[COM1],1024);   //将发送的数据移出队列发送出去，返回值是从队列中读取的数据
             DMA_Cmd(COM_DMA_TX_STREAM[COM1], DISABLE);
             DMA_ClearFlag(COM_DMA_TX_STREAM[COM1], COM_DMA_TX_FLAG[COM1]);
-            DMA_SetCurrDataCounter(COM_DMA_TX_STREAM[COM1], resLen);
-            DMA_Cmd(COM_DMA_TX_STREAM[COM1], ENABLE);
+            DMA_SetCurrDataCounter(COM_DMA_TX_STREAM[COM1], len);    //准备发送的数据
+            DMA_Cmd(COM_DMA_TX_STREAM[COM1], ENABLE);                     //开始DMA发送数据
 
-            return ;
+ //           return ;
         }
     }
 }
