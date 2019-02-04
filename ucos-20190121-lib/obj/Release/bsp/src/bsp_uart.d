@@ -12,4 +12,5 @@ obj\release\bsp\src\bsp_uart.o: bsp\src\BSP_Uart.c SPL\inc/misc.h \
  SPL\inc/stm32f4xx_sdio.h SPL\inc/stm32f4xx_spi.h \
  SPL\inc/stm32f4xx_syscfg.h SPL\inc/stm32f4xx_tim.h \
  SPL\inc/stm32f4xx_usart.h SPL\inc/stm32f4xx_wwdg.h common\inc/Queue.h \
- bsp\inc/BSP_Uart.h
+ bsp\inc/BSP_Uart.h ucosii\Ports/os_cpu.h ucosii\Source/ucos_ii.h \
+ ucosii\CONFIG/app_cfg.h ucosii\CONFIG/os_cfg.h

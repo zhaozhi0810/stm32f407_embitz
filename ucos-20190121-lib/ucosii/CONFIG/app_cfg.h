@@ -29,6 +29,8 @@
 #ifndef  __APP_CFG_H__
 #define  __APP_CFG_H__
 
+#include <stdio.h>
+
 /*
 *********************************************************************************************************
 *                                       MODULE ENABLE / DISABLE
@@ -57,7 +59,7 @@
 #define  LED2_TASK_PRIO                                   7
 #define  APP_TASK_Printf_PRIO                              4
 #define  TTY_TASK_PRIO                              8
-#define  PRINT_TASK_PRIO                              60     //�Ƚϵ͵����ȼ�
+#define  PRINT_TASK_PRIO                    (OS_LOWEST_PRIO - 3)     //�Ƚϵ͵����ȼ�
 #define  OS_TASK_TMR_PRIO                (OS_LOWEST_PRIO - 2)
 
 /*
@@ -79,10 +81,21 @@
 *                                                  LIB
 *********************************************************************************************************
 */
+#define DEBUG
+
+#ifdef DEBUG
+#define Debug_Messege()  \
+        printf("%s %d\r",__FUNCTION__,__LINE__)
+#else
+#define Debug_Messege()
+
+#endif
 
 
 
-
+#define __UCOS__    //BSP中可能使用，控制在使用OS时需要增加的部分
+					//裸机的中断处理和ucos的中断处理不同
+					//20190204
 
 
 #endif

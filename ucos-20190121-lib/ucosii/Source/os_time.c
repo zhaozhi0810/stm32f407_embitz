@@ -138,7 +138,7 @@ INT8U  OSTimeDlyHMSM (INT8U   hours,
     return (OS_ERR_NONE);
 }
 #endif
-/*$PAGE*/
+/*$PAGE*/
 /*
 *********************************************************************************************************
 *                                         RESUME A DELAYED TASK

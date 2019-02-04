@@ -339,10 +339,11 @@
 
 1548081049 g:\project\stm32f407-embitz\test1-led\ucos-20190121-lib\common\inc\print_float.h
 
-1548056124 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_led.c
+1549114947 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_led.c
 	"misc.h"
 	"stm32f4xx_gpio.h"
 	"stm32f4xx_rcc.h"
+	"BSP_Led.h"
 
 1548038248 g:\project\stm32f407-embitz\ucos-20190121-lib\spl\inc\misc.h
 	"stm32f4xx.h"
@@ -473,7 +474,7 @@
 1548038249 g:\project\stm32f407-embitz\ucos-20190121-lib\spl\inc\stm32f4xx_wwdg.h
 	"stm32f4xx.h"
 
-1548594489 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_uart.c
+1549283881 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_uart.c
 	<string.h>
 	"misc.h"
 	"stm32f4xx_gpio.h"
@@ -482,11 +483,14 @@
 	"stm32f4xx_dma.h"
 	"Queue.h"
 	"BSP_Uart.h"
+	"os_cpu.h"
+	"ucos_ii.h"
+	"app_cfg.h"
 
 1547645417 g:\project\stm32f407-embitz\ucos-20190121-lib\common\inc\queue.h
 	"stdint.h"
 
-1548146434 g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\inc\bsp_uart.h
+1548826257 g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\inc\bsp_uart.h
 	<stdint.h>
 
 1548127893 source:g:\project\stm32f407-embitz\ucos-20190121-lib\common\src\float_printf.c
@@ -608,28 +612,33 @@
 	"stm32f4xx_wwdg.h"
 	"stm32f4xx_rcc.h"
 
-1548513619 source:g:\project\stm32f407-embitz\ucos-20190121-lib\src\main.c
+1549117338 source:g:\project\stm32f407-embitz\ucos-20190121-lib\src\main.c
 	"stm32f4xx_conf.h"
 	"Queue.h"
 	"BSP_Uart.h"
 	"BSP_Led.h"
+	"BSP_I2c.h"
+	"bsp.h"
+	"bsp_os.h"
 	"stm32f4xx.h"
 	"ucos_ii.h"
 	"app_cfg.h"
 	"stdio.h"
 	<string.h>
 
-1548056152 g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\inc\bsp_led.h
+1549097485 g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\inc\bsp_led.h
 	"stm32f4xx_gpio.h"
+	"os_cpu.h"
 
-1548118611 g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\ucos_ii.h
+1548826499 g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\ucos_ii.h
 	<app_cfg.h>
 	<os_cfg.h>
 	<os_cpu.h>
 
-1548512885 g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\config\app_cfg.h
+1549283628 g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\config\app_cfg.h
+	<stdio.h>
 
-1312982142 g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\config\os_cfg.h
+1549100089 g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\config\os_cfg.h
 
 1312728454 g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\ports\os_cpu.h
 
@@ -649,7 +658,7 @@
 1275532462 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\ports\os_dbg.c
 	<ucos_ii.h>
 
-1548062345 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_core.c
+1548674754 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_core.c
 	<ucos_ii.h>
 
 1275532462 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_flag.c
@@ -673,9 +682,45 @@
 1275532462 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_task.c
 	<ucos_ii.h>
 
-1548164009 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_time.c
+1548826787 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_time.c
 	<ucos_ii.h>
 
 1548164030 source:g:\project\stm32f407-embitz\ucos-20190121-lib\ucosii\source\os_tmr.c
 	<ucos_ii.h>
+
+1549096710 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_os.c
+	<bsp.h>
+	<bsp_os.h>
+
+1549097491 g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\inc\bsp.h
+	<stdio.h>
+	<stdarg.h>
+	<os_cpu.h>
+	<stm32f4xx_gpio.h>
+
+1548826024 g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\inc\bsp_os.h
+	<ucos_ii.h>
+
+1549097264 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp.c
+	<bsp.h>
+	<bsp_os.h>
+	"BSP_Uart.h"
+	"BSP_Led.h"
+
+1548944448 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_periph.c
+	<bsp.h>
+	<bsp_os.h>
+	<stm32f4xx.h>
+
+1549118866 source:g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\src\bsp_i2c.c
+	<string.h>
+	"misc.h"
+	"stm32f4xx_i2c.h"
+	"stm32f4xx_gpio.h"
+	"stm32f4xx_rcc.h"
+	"BSP_I2c.h"
+	"app_cfg.h"
+
+1549108832 g:\project\stm32f407-embitz\ucos-20190121-lib\bsp\inc\bsp_i2c.h
+	<stdint.h>
 

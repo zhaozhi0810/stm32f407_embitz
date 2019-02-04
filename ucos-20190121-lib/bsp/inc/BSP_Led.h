@@ -15,21 +15,48 @@
  *******************************************************************************/
 
 #include "stm32f4xx_gpio.h"
+#include "os_cpu.h"
+
+
 
  #ifndef _BSP_LED_H_
  #define _BSP_LED_H_
 
-#define LED1_ON() 		GPIO_ResetBits(GPIOE , GPIO_Pin_13)
-#define LED2_ON() 		GPIO_ResetBits(GPIOE , GPIO_Pin_14)
-#define LED3_ON() 		GPIO_ResetBits(GPIOE , GPIO_Pin_15)
 
-#define LED1_OFF() 		GPIO_SetBits(GPIOE , GPIO_Pin_13)
-#define LED2_OFF() 		GPIO_SetBits(GPIOE , GPIO_Pin_14)
-#define LED3_OFF() 		GPIO_SetBits(GPIOE , GPIO_Pin_15)
+/*
+*********************************************************************************************************
+*                                              LED SERVICES
+*********************************************************************************************************
+*/
 
 
-//led初始化函数
-void BSP_LedOpen(void);
+#define  BSP_GPIO_LED1                        GPIO_Pin_13
+#define  BSP_GPIO_LED2                        GPIO_Pin_14
+#define  BSP_GPIO_LED3                        GPIO_Pin_15
+
+
+#define  LED_ALL   0
+#define  LED1       1
+#define  LED2       2
+#define  LED3       3
+
+
+
+
+
+#define LED_GPIO_RCC RCC_AHB1Periph_GPIOE
+#define LED_GPIO    GPIOE
+
+
+
+
+
+void  BSP_LED_Init(void);
+void  BSP_LED_On (INT8U	 led);
+void  BSP_LED_Off (INT8U led);
+void  BSP_LED_Toggle (INT8U  led);
+
+
 
  #endif
 

@@ -335,7 +335,7 @@ extern "C" {
 #define OS_ERR_TMR_STOPPED            142u
 #define OS_ERR_TMR_NO_CALLBACK        143u
 
-/*$PAGE*/
+/*$PAGE*/
 /*
 *********************************************************************************************************
 *                                          EVENT CONTROL BLOCK

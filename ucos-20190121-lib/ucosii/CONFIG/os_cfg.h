@@ -15,7 +15,7 @@
 * LICENSING TERMS:
 * ---------------
 *   uC/OS-II is provided in source form for FREE evaluation, for educational use or for peaceful research.
-* If you plan on using  uC/OS-II  in a commercial product you need to contact Micriµm to properly license
+* If you plan on using  uC/OS-II  in a commercial product you need to contact MicriÁ•Ñ to properly license
 * its use in your product. We provide ALL the source code for your convenience and to help you experience
 * uC/OS-II.   The fact that the  source is provided does  NOT  mean that you can use it without  paying a
 * licensing fee.
@@ -26,119 +26,120 @@
 #define OS_CFG_H
 
 
- /* ---------------------- ◊€∫œ≈‰÷√ ----------------------- *//* ---------------------- MISCELLANEOUS ----------------------- */
-#define OS_APP_HOOKS_EN           0u   /* ”¶”√Ω”ø⁄ *//* Application-defined hooks are called from the uC/OS-II hooks */
-#define OS_ARG_CHK_EN             1u   /* æ∫’˘ºÏ≤È *//* Enable (1) or Disable (0) argument checking                  */
-#define OS_CPU_HOOKS_EN           1u   /* ¥¶¿Ì∆˜Ω”ø⁄Œƒº˛ *//* uC/OS-II hooks are found in the processor port files         */
+ /* ---------------------- ÁªºÂêàÈÖçÁΩÆ ----------------------- *//* ---------------------- MISCELLANEOUS ----------------------- */
+#define OS_APP_HOOKS_EN           0u   /* Â∫îÁî®Êé•Âè£ *//* Application-defined hooks are called from the uC/OS-II hooks */
+#define OS_ARG_CHK_EN             1u   /* Á´û‰∫âÊ£ÄÊü• *//* Enable (1) or Disable (0) argument checking                  */
+#define OS_CPU_HOOKS_EN           1u   /* Â§ÑÁêÜÂô®Êé•Âè£Êñá‰ª∂ *//* uC/OS-II hooks are found in the processor port files         */
 
-#define OS_DEBUG_EN               0u   /* µ˜ ‘±‰¡ø *//* Enable(1) debug variables                                    */
+#define OS_DEBUG_EN               0u   /* Ë∞ÉËØïÂèòÈáè *//* Enable(1) debug variables                                    */
 
-#define OS_EVENT_MULTI_EN         1u   /*  π”√ OSEventPendMulti() *//* Include code for OSEventPendMulti()                          */
+#define OS_EVENT_MULTI_EN         1u   /* ‰ΩøÁî® OSEventPendMulti() *//* Include code for OSEventPendMulti()                          */
 #define OS_EVENT_NAME_EN          1u   /* Enable names for Sem, Mutex, Mbox and Q                      */
 
-#define OS_LOWEST_PRIO           63u   /* ◊ÓµÕ”≈œ»º∂*//* Defines the lowest priority that can be assigned ...         */
+#define OS_LOWEST_PRIO           15u   /* ÊúÄ‰Ωé‰ºòÂÖàÁ∫ß*//* Defines the lowest priority that can be assigned ...         */
                                        /* ... MUST NEVER be higher than 254!                           */
 
-#define OS_MAX_EVENTS            10u   /* ◊Ó¥Û”¶”√ ¬º˛øÿ÷∆øÈ ˝¡ø *//* Max. number of event control blocks in your application      */
-#define OS_MAX_FLAGS              5u   /* ◊Ó¥Û”¶”√ ¬º˛±Í÷æ ˝¡ø *//* Max. number of Event Flag Groups    in your application      */
-#define OS_MAX_MEM_PART           5u   /* ◊Ó¥Û¥Ê¥¢∆˜∑÷≈‰ ˝¡ø *//* Max. number of memory partitions                             */
-#define OS_MAX_QS                 4u   /* ◊Ó¥Û”¶”√∂”¡–øÿ÷∆øÈ ˝¡ø *//* Max. number of queue control blocks in your application      */
-#define OS_MAX_TASKS             20u   /* ◊Ó¥Û”¶”√»ŒŒÒ ˝¡ø, “ª∂®>=2 *//* Max. number of tasks in your application, MUST be >= 2       */
+#define OS_MAX_EVENTS            10u   /* ÊúÄÂ§ßÂ∫îÁî®‰∫ã‰ª∂ÊéßÂà∂ÂùóÊï∞Èáè *//* Max. number of event control blocks in your application      */
+#define OS_MAX_FLAGS              5u   /* ÊúÄÂ§ßÂ∫îÁî®‰∫ã‰ª∂Ê†áÂøóÊï∞Èáè *//* Max. number of Event Flag Groups    in your application      */
+#define OS_MAX_MEM_PART           5u   /* ÊúÄÂ§ßÂ≠òÂÇ®Âô®ÂàÜÈÖçÊï∞Èáè *//* Max. number of memory partitions                             */
+#define OS_MAX_QS                 4u   /* ÊúÄÂ§ßÂ∫îÁî®ÈòüÂàóÊéßÂà∂ÂùóÊï∞Èáè *//* Max. number of queue control blocks in your application      */
+#define OS_MAX_TASKS             14u   /* ÊúÄÂ§ßÂ∫îÁî®‰ªªÂä°Êï∞Èáè, ‰∏ÄÂÆö>=2 *//* Max. number of tasks in your application, MUST be >= 2       */
 
-#define OS_SCHED_LOCK_EN          1u   /*  π”√ OSSchedLock() ∫Õ OSSchedUnlock() *//* Include code for OSSchedLock() and OSSchedUnlock()           */
+#define OS_SCHED_LOCK_EN          1u   /* ‰ΩøÁî® OSSchedLock() Âíå OSSchedUnlock() *//* Include code for OSSchedLock() and OSSchedUnlock()           */
 
-#define OS_TICK_STEP_EN           1u   /*  πƒ‹≤ΩΩ⁄≈ƒ *//* Enable tick stepping feature for uC/OS-View                  */
-#define OS_TICKS_PER_SEC       1000u   /* …Ë∂®“ª√ÎΩ⁄≈ƒµƒ ˝¡ø *//* Set the number of ticks in one second                        */
-
-
-/* --------------------- »ŒŒÒ∂—’ª¥Û–° ---------------------- *//* --------------------- TASK STACK SIZE ---------------------- */
-#define OS_TASK_TMR_STK_SIZE    128u   /* ∂® ±∆˜»ŒŒÒ∂—’ª¥Û–° (»Áπ˚ OS_STK  πƒ‹) *//* Timer      task stack size (# of OS_STK wide entries)        */
-#define OS_TASK_STAT_STK_SIZE   128u   /* Õ≥º∆»ŒŒÒ∂—’ª¥Û–° (»Áπ˚ OS_STK  πƒ‹) *//* Statistics task stack size (# of OS_STK wide entries)        */
-#define OS_TASK_IDLE_STK_SIZE   128u   /* ø’œ–»ŒŒÒ∂—’ª¥Û–° (»Áπ˚ OS_STK  πƒ‹) *//* Idle       task stack size (# of OS_STK wide entries)        */
+#define OS_TICK_STEP_EN           1u   /* ‰ΩøËÉΩÊ≠•ËäÇÊãç *//* Enable tick stepping feature for uC/OS-View                  */
+#define OS_TICKS_PER_SEC       50u   /* ËÆæÂÆö‰∏ÄÁßíËäÇÊãçÁöÑÊï∞Èáè *//* Set the number of ticks in one second                        */
+                                                            //1000--„ÄãÊîπ‰∏∫50Ôºå‰∏çÈúÄË¶ÅÈÇ£‰∏™È´òÁöÑ‰∏≠Êñ≠ÈÄüÁéá   zhaozhi 20190130
 
 
-/* --------------------- »ŒŒÒπ‹¿Ì ---------------------- *//* --------------------- TASK MANAGEMENT ---------------------- */
-#define OS_TASK_CHANGE_PRIO_EN    1u   /*  π”√ OSTaskChangePrio() *//*     Include code for OSTaskChangePrio()                      */
-#define OS_TASK_CREATE_EN         1u   /*  π”√ OSTaskCreate() *//*     Include code for OSTaskCreate()                          */
-#define OS_TASK_CREATE_EXT_EN     1u   /*  π”√ OSTaskCreateExt() *//*     Include code for OSTaskCreateExt()                       */
-#define OS_TASK_DEL_EN            1u   /*  π”√ OSTaskDel() *//*     Include code for OSTaskDel()                             */
+/* --------------------- ‰ªªÂä°Â†ÜÊ†àÂ§ßÂ∞è ---------------------- *//* --------------------- TASK STACK SIZE ---------------------- */
+#define OS_TASK_TMR_STK_SIZE    128u   /* ÂÆöÊó∂Âô®‰ªªÂä°Â†ÜÊ†àÂ§ßÂ∞è (Â¶ÇÊûú OS_STK ‰ΩøËÉΩ) *//* Timer      task stack size (# of OS_STK wide entries)        */
+#define OS_TASK_STAT_STK_SIZE   128u   /* ÁªüËÆ°‰ªªÂä°Â†ÜÊ†àÂ§ßÂ∞è (Â¶ÇÊûú OS_STK ‰ΩøËÉΩ) *//* Statistics task stack size (# of OS_STK wide entries)        */
+#define OS_TASK_IDLE_STK_SIZE   128u   /* Á©∫Èó≤‰ªªÂä°Â†ÜÊ†àÂ§ßÂ∞è (Â¶ÇÊûú OS_STK ‰ΩøËÉΩ) *//* Idle       task stack size (# of OS_STK wide entries)        */
+
+
+/* --------------------- ‰ªªÂä°ÁÆ°ÁêÜ ---------------------- *//* --------------------- TASK MANAGEMENT ---------------------- */
+#define OS_TASK_CHANGE_PRIO_EN    1u   /* ‰ΩøÁî® OSTaskChangePrio() *//*     Include code for OSTaskChangePrio()                      */
+#define OS_TASK_CREATE_EN         1u   /* ‰ΩøÁî® OSTaskCreate() *//*     Include code for OSTaskCreate()                          */
+#define OS_TASK_CREATE_EXT_EN     1u   /* ‰ΩøÁî® OSTaskCreateExt() *//*     Include code for OSTaskCreateExt()                       */
+#define OS_TASK_DEL_EN            1u   /* ‰ΩøÁî® OSTaskDel() *//*     Include code for OSTaskDel()                             */
 #define OS_TASK_NAME_EN           1u   /*     Enable task names                                        */
-#define OS_TASK_PROFILE_EN        1u   /* OS_TCB µƒ∞¸∫¨±‰¡ø *//*     Include variables in OS_TCB for profiling                */
-#define OS_TASK_QUERY_EN          1u   /*  π”√ OSTaskQuery() *//*     Include code for OSTaskQuery()                           */
+#define OS_TASK_PROFILE_EN        1u   /* OS_TCB ÁöÑÂåÖÂê´ÂèòÈáè *//*     Include variables in OS_TCB for profiling                */
+#define OS_TASK_QUERY_EN          1u   /* ‰ΩøÁî® OSTaskQuery() *//*     Include code for OSTaskQuery()                           */
 #define OS_TASK_REG_TBL_SIZE      1u   /*     Size of task variables array (#of INT32U entries)        */
-#define OS_TASK_STAT_EN           1u   /*  πƒ‹(1)ªÚΩ˚÷π(0)Õ≥º∆»ŒŒÒ *//*     Enable (1) or Disable(0) the statistics task             */
-#define OS_TASK_STAT_STK_CHK_EN   1u   /* ¥”Õ≥º∆»ŒŒÒ∂—’ªºÏ≤È»ŒŒÒ  *//*     Check task stacks from statistic task                    */
-#define OS_TASK_SUSPEND_EN        1u   /*  π”√ OSTaskSuspend() ∫Õ OSTaskResume() *//*     Include code for OSTaskSuspend() and OSTaskResume()      */
-#define OS_TASK_SW_HOOK_EN        1u   /*  π”√ OSTaskSwHook() *//*     Include code for OSTaskSwHook()                          */
+#define OS_TASK_STAT_EN           1u   /* ‰ΩøËÉΩ(1)ÊàñÁ¶ÅÊ≠¢(0)ÁªüËÆ°‰ªªÂä° *//*     Enable (1) or Disable(0) the statistics task             */
+#define OS_TASK_STAT_STK_CHK_EN   1u   /* ‰ªéÁªüËÆ°‰ªªÂä°Â†ÜÊ†àÊ£ÄÊü•‰ªªÂä°  *//*     Check task stacks from statistic task                    */
+#define OS_TASK_SUSPEND_EN        1u   /* ‰ΩøÁî® OSTaskSuspend() Âíå OSTaskResume() *//*     Include code for OSTaskSuspend() and OSTaskResume()      */
+#define OS_TASK_SW_HOOK_EN        1u   /* ‰ΩøÁî® OSTaskSwHook() *//*     Include code for OSTaskSwHook()                          */
 
 
-/* -----------------------  ¬º˛±Í÷æ ------------------------ *//* ----------------------- EVENT FLAGS ------------------------ */
-#define OS_FLAG_EN                1u   /*  πƒ‹(1)ªÚΩ˚÷π(0) ¬º˛±Í÷æ *//* Enable (1) or Disable (0) code generation for EVENT FLAGS    */
-#define OS_FLAG_ACCEPT_EN         1u   /*  π”√ OSFlagAccept() *//*     Include code for OSFlagAccept()                          */
-#define OS_FLAG_DEL_EN            1u   /*  π”√ OSFlagDel() *//*     Include code for OSFlagDel()                             */
+/* ----------------------- ‰∫ã‰ª∂Ê†áÂøó ------------------------ *//* ----------------------- EVENT FLAGS ------------------------ */
+#define OS_FLAG_EN                1u   /* ‰ΩøËÉΩ(1)ÊàñÁ¶ÅÊ≠¢(0)‰∫ã‰ª∂Ê†áÂøó *//* Enable (1) or Disable (0) code generation for EVENT FLAGS    */
+#define OS_FLAG_ACCEPT_EN         1u   /* ‰ΩøÁî® OSFlagAccept() *//*     Include code for OSFlagAccept()                          */
+#define OS_FLAG_DEL_EN            1u   /* ‰ΩøÁî® OSFlagDel() *//*     Include code for OSFlagDel()                             */
 #define OS_FLAG_NAME_EN           1u   /*     Enable names for event flag group                        */
-#define OS_FLAG_QUERY_EN          1u   /*  π”√ OSFlagQuery() *//*     Include code for OSFlagQuery()                           */
-#define OS_FLAG_WAIT_CLR_EN       1u   /* µ»¥˝«Â≥˝ ¬º˛±Í÷æ *//* Include code for Wait on Clear EVENT FLAGS                   */
-#define OS_FLAGS_NBITS           16u   /* OS_FLAGS  ˝æ›¿‡–Õ(8,16ªÚ32Œª) *//* Size in #bits of OS_FLAGS data type (8, 16 or 32)            */
+#define OS_FLAG_QUERY_EN          1u   /* ‰ΩøÁî® OSFlagQuery() *//*     Include code for OSFlagQuery()                           */
+#define OS_FLAG_WAIT_CLR_EN       1u   /* Á≠âÂæÖÊ∏ÖÈô§‰∫ã‰ª∂Ê†áÂøó *//* Include code for Wait on Clear EVENT FLAGS                   */
+#define OS_FLAGS_NBITS           16u   /* OS_FLAGS Êï∞ÊçÆÁ±ªÂûã(8,16Êàñ32‰Ωç) *//* Size in #bits of OS_FLAGS data type (8, 16 or 32)            */
 
 
-/* -------------------- –≈œ¢” œ‰ --------------------- *//* -------------------- MESSAGE MAILBOXES --------------------- */
-#define OS_MBOX_EN                1u   /*  πƒ‹(1)ªÚΩ˚÷π(0)–≈œ¢” œ‰ *//* Enable (1) or Disable (0) code generation for MAILBOXES      */
-#define OS_MBOX_ACCEPT_EN         1u   /*  π”√ OSMboxAccept() *//*     Include code for OSMboxAccept()                          */
-#define OS_MBOX_DEL_EN            1u   /*  π”√ OSMboxDel() *//*     Include code for OSMboxDel()                             */
-#define OS_MBOX_PEND_ABORT_EN     1u   /*  π”√ OSMboxPendAbort() *//*     Include code for OSMboxPendAbort()                       */
-#define OS_MBOX_POST_EN           1u   /*  π”√ OSMboxPost() *//*     Include code for OSMboxPost()                            */
-#define OS_MBOX_POST_OPT_EN       1u   /*  π”√ OSMboxPostOpt() *//*     Include code for OSMboxPostOpt()                         */
-#define OS_MBOX_QUERY_EN          1u   /*  π”√ OSMboxQuery() *//*     Include code for OSMboxQuery()                           */
+/* -------------------- ‰ø°ÊÅØÈÇÆÁÆ± --------------------- *//* -------------------- MESSAGE MAILBOXES --------------------- */
+#define OS_MBOX_EN                1u   /* ‰ΩøËÉΩ(1)ÊàñÁ¶ÅÊ≠¢(0)‰ø°ÊÅØÈÇÆÁÆ± *//* Enable (1) or Disable (0) code generation for MAILBOXES      */
+#define OS_MBOX_ACCEPT_EN         1u   /* ‰ΩøÁî® OSMboxAccept() *//*     Include code for OSMboxAccept()                          */
+#define OS_MBOX_DEL_EN            1u   /* ‰ΩøÁî® OSMboxDel() *//*     Include code for OSMboxDel()                             */
+#define OS_MBOX_PEND_ABORT_EN     1u   /* ‰ΩøÁî® OSMboxPendAbort() *//*     Include code for OSMboxPendAbort()                       */
+#define OS_MBOX_POST_EN           1u   /* ‰ΩøÁî® OSMboxPost() *//*     Include code for OSMboxPost()                            */
+#define OS_MBOX_POST_OPT_EN       1u   /* ‰ΩøÁî® OSMboxPostOpt() *//*     Include code for OSMboxPostOpt()                         */
+#define OS_MBOX_QUERY_EN          1u   /* ‰ΩøÁî® OSMboxQuery() *//*     Include code for OSMboxQuery()                           */
 
 
-/* --------------------- ¥Ê¥¢π‹¿Ì -------------------- *//* --------------------- MEMORY MANAGEMENT -------------------- */
-#define OS_MEM_EN                 1u   /*  πƒ‹(1)ªÚΩ˚÷π(0)¥Ê¥¢π‹¿Ì *//* Enable (1) or Disable (0) code generation for MEMORY MANAGER */
+/* --------------------- Â≠òÂÇ®ÁÆ°ÁêÜ -------------------- *//* --------------------- MEMORY MANAGEMENT -------------------- */
+#define OS_MEM_EN                 1u   /* ‰ΩøËÉΩ(1)ÊàñÁ¶ÅÊ≠¢(0)Â≠òÂÇ®ÁÆ°ÁêÜ *//* Enable (1) or Disable (0) code generation for MEMORY MANAGER */
 #define OS_MEM_NAME_EN            1u   /*     Enable memory partition names                            */
-#define OS_MEM_QUERY_EN           1u   /*  π”√ OSMemQuery() *//*     Include code for OSMemQuery()                            */
+#define OS_MEM_QUERY_EN           1u   /* ‰ΩøÁî® OSMemQuery() *//*     Include code for OSMemQuery()                            */
 
 
-/* ---------------- ª•≥‚–≈∫≈¡ø --------------- *//* ---------------- MUTUAL EXCLUSION SEMAPHORES --------------- */
-#define OS_MUTEX_EN               1u   /*  πƒ‹(1)ªÚΩ˚÷π(0)ª•≥‚–≈∫≈¡ø *//* Enable (1) or Disable (0) code generation for MUTEX          */
-#define OS_MUTEX_ACCEPT_EN        1u   /*  π”√ OSMutexAccept() *//*     Include code for OSMutexAccept()                         */
-#define OS_MUTEX_DEL_EN           1u   /*  π”√ OSMutexDel() *//*     Include code for OSMutexDel()                            */
-#define OS_MUTEX_QUERY_EN         1u   /*  π”√ OSMutexQuery() *//*     Include code for OSMutexQuery()                          */
+/* ---------------- ‰∫íÊñ•‰ø°Âè∑Èáè --------------- *//* ---------------- MUTUAL EXCLUSION SEMAPHORES --------------- */
+#define OS_MUTEX_EN               1u   /* ‰ΩøËÉΩ(1)ÊàñÁ¶ÅÊ≠¢(0)‰∫íÊñ•‰ø°Âè∑Èáè *//* Enable (1) or Disable (0) code generation for MUTEX          */
+#define OS_MUTEX_ACCEPT_EN        1u   /* ‰ΩøÁî® OSMutexAccept() *//*     Include code for OSMutexAccept()                         */
+#define OS_MUTEX_DEL_EN           1u   /* ‰ΩøÁî® OSMutexDel() *//*     Include code for OSMutexDel()                            */
+#define OS_MUTEX_QUERY_EN         1u   /* ‰ΩøÁî® OSMutexQuery() *//*     Include code for OSMutexQuery()                          */
 
 
-/* ---------------------- œ˚œ¢∂”¡– ---------------------- *//* ---------------------- MESSAGE QUEUES ---------------------- */
-#define OS_Q_EN                   1u   /*  πƒ‹(1)ªÚΩ˚÷π(0)œ˚œ¢∂”¡– *//* Enable (1) or Disable (0) code generation for QUEUES         */
-#define OS_Q_ACCEPT_EN            1u   /*  π”√ OSQAccept() *//*     Include code for OSQAccept()                             */
-#define OS_Q_DEL_EN               1u   /*  π”√ OSQDel() *//*     Include code for OSQDel()                                */
-#define OS_Q_FLUSH_EN             1u   /*  π”√ OSQFlush() *//*     Include code for OSQFlush()                              */
-#define OS_Q_PEND_ABORT_EN        1u   /*  π”√ OSQPendAbort() *//*     Include code for OSQPendAbort()                          */
-#define OS_Q_POST_EN              1u   /*  π”√ OSQPost() *//*     Include code for OSQPost()                               */
-#define OS_Q_POST_FRONT_EN        1u   /*  π”√ OSQPostFront() *//*     Include code for OSQPostFront()                          */
-#define OS_Q_POST_OPT_EN          1u   /*  π”√ OSQPostOpt() *//*     Include code for OSQPostOpt()                            */
-#define OS_Q_QUERY_EN             1u   /*  π”√ OSQQuery() *//*     Include code for OSQQuery()                              */
+/* ---------------------- Ê∂àÊÅØÈòüÂàó ---------------------- *//* ---------------------- MESSAGE QUEUES ---------------------- */
+#define OS_Q_EN                   1u   /* ‰ΩøËÉΩ(1)ÊàñÁ¶ÅÊ≠¢(0)Ê∂àÊÅØÈòüÂàó *//* Enable (1) or Disable (0) code generation for QUEUES         */
+#define OS_Q_ACCEPT_EN            1u   /* ‰ΩøÁî® OSQAccept() *//*     Include code for OSQAccept()                             */
+#define OS_Q_DEL_EN               1u   /* ‰ΩøÁî® OSQDel() *//*     Include code for OSQDel()                                */
+#define OS_Q_FLUSH_EN             1u   /* ‰ΩøÁî® OSQFlush() *//*     Include code for OSQFlush()                              */
+#define OS_Q_PEND_ABORT_EN        1u   /* ‰ΩøÁî® OSQPendAbort() *//*     Include code for OSQPendAbort()                          */
+#define OS_Q_POST_EN              1u   /* ‰ΩøÁî® OSQPost() *//*     Include code for OSQPost()                               */
+#define OS_Q_POST_FRONT_EN        1u   /* ‰ΩøÁî® OSQPostFront() *//*     Include code for OSQPostFront()                          */
+#define OS_Q_POST_OPT_EN          1u   /* ‰ΩøÁî® OSQPostOpt() *//*     Include code for OSQPostOpt()                            */
+#define OS_Q_QUERY_EN             1u   /* ‰ΩøÁî® OSQQuery() *//*     Include code for OSQQuery()                              */
 
 
-/* ------------------------ –≈∫≈¡ø ------------------------ *//* ------------------------ SEMAPHORES ------------------------ */
-#define OS_SEM_EN                 1u   /*  πƒ‹(1)ªÚΩ˚÷π(0)–≈∫≈¡ø *//* Enable (1) or Disable (0) code generation for SEMAPHORES     */
-#define OS_SEM_ACCEPT_EN          1u   /*  π”√ OSSemAccept() *//*    Include code for OSSemAccept()                            */
-#define OS_SEM_DEL_EN             1u   /*  π”√ OSSemDel() *//*    Include code for OSSemDel()                               */
-#define OS_SEM_PEND_ABORT_EN      1u   /*  π”√ OSSemPendAbort() *//*    Include code for OSSemPendAbort()                         */
-#define OS_SEM_QUERY_EN           1u   /*  π”√ OSSemQuery() *//*    Include code for OSSemQuery()                             */
-#define OS_SEM_SET_EN             1u   /*  π”√ OSSemSet() *//*    Include code for OSSemSet()                               */
+/* ------------------------ ‰ø°Âè∑Èáè ------------------------ *//* ------------------------ SEMAPHORES ------------------------ */
+#define OS_SEM_EN                 1u   /* ‰ΩøËÉΩ(1)ÊàñÁ¶ÅÊ≠¢(0)‰ø°Âè∑Èáè *//* Enable (1) or Disable (0) code generation for SEMAPHORES     */
+#define OS_SEM_ACCEPT_EN          1u   /* ‰ΩøÁî® OSSemAccept() *//*    Include code for OSSemAccept()                            */
+#define OS_SEM_DEL_EN             1u   /* ‰ΩøÁî® OSSemDel() *//*    Include code for OSSemDel()                               */
+#define OS_SEM_PEND_ABORT_EN      1u   /* ‰ΩøÁî® OSSemPendAbort() *//*    Include code for OSSemPendAbort()                         */
+#define OS_SEM_QUERY_EN           1u   /* ‰ΩøÁî® OSSemQuery() *//*    Include code for OSSemQuery()                             */
+#define OS_SEM_SET_EN             1u   /* ‰ΩøÁî® OSSemSet() *//*    Include code for OSSemSet()                               */
 
 
-/* ---------------------  ±º‰π‹¿Ì ---------------------- *//* --------------------- TIME MANAGEMENT ---------------------- */
-#define OS_TIME_DLY_HMSM_EN       1u   /*  π”√ OSTimeDlyHMSM() *//*     Include code for OSTimeDlyHMSM()                         */
-#define OS_TIME_DLY_RESUME_EN     1u   /*  π”√ OSTimeDlyResume() *//*     Include code for OSTimeDlyResume()                       */
-#define OS_TIME_GET_SET_EN        1u   /*  π”√ OSTimeGet() and OSTimeSet() *//*     Include code for OSTimeGet() and OSTimeSet()             */
-#define OS_TIME_TICK_HOOK_EN      1u   /*  π”√ OSTimeTickHook() *//*     Include code for OSTimeTickHook()                        */
+/* --------------------- Êó∂Èó¥ÁÆ°ÁêÜ ---------------------- *//* --------------------- TIME MANAGEMENT ---------------------- */
+#define OS_TIME_DLY_HMSM_EN       1u   /* ‰ΩøÁî® OSTimeDlyHMSM() *//*     Include code for OSTimeDlyHMSM()                         */
+#define OS_TIME_DLY_RESUME_EN     1u   /* ‰ΩøÁî® OSTimeDlyResume() *//*     Include code for OSTimeDlyResume()                       */
+#define OS_TIME_GET_SET_EN        1u   /* ‰ΩøÁî® OSTimeGet() and OSTimeSet() *//*     Include code for OSTimeGet() and OSTimeSet()             */
+#define OS_TIME_TICK_HOOK_EN      1u   /* ‰ΩøÁî® OSTimeTickHook() *//*     Include code for OSTimeTickHook()                        */
 
 
-/* --------------------- ∂® ±∆˜π‹¿Ì --------------------- *//* --------------------- TIMER MANAGEMENT --------------------- */
-#define OS_TMR_EN                 1u   /*  πƒ‹(1)ªÚΩ˚÷π(0)∂® ±∆˜π‹¿Ì *//* Enable (1) or Disable (0) code generation for TIMERS         */
-#define OS_TMR_CFG_MAX           16u   /* ∂® ±∆˜◊Ó¥Û÷µ *//*     Maximum number of timers                                 */
-#define OS_TMR_CFG_NAME_EN        1u   /* ∂® ±∆˜√˚◊÷¥Û–°  *//*     Determine timer names                                    */
-#define OS_TMR_CFG_WHEEL_SIZE     8u   /* ∂® ±∆˜¬÷¥Û–° *//*     Size of timer wheel (#Spokes)                            */
-#define OS_TMR_CFG_TICKS_PER_SEC 10u   /* ∂® ±∆˜π‹¿Ì»ŒŒÒ‘À––ÀŸ∂»(Hz) *//*     Rate at which timer management task runs (Hz)            */
+/* --------------------- ÂÆöÊó∂Âô®ÁÆ°ÁêÜ --------------------- *//* --------------------- TIMER MANAGEMENT --------------------- */
+#define OS_TMR_EN                 1u   /* ‰ΩøËÉΩ(1)ÊàñÁ¶ÅÊ≠¢(0)ÂÆöÊó∂Âô®ÁÆ°ÁêÜ *//* Enable (1) or Disable (0) code generation for TIMERS         */
+#define OS_TMR_CFG_MAX           16u   /* ÂÆöÊó∂Âô®ÊúÄÂ§ßÂÄº *//*     Maximum number of timers                                 */
+#define OS_TMR_CFG_NAME_EN        1u   /* ÂÆöÊó∂Âô®ÂêçÂ≠óÂ§ßÂ∞è  *//*     Determine timer names                                    */
+#define OS_TMR_CFG_WHEEL_SIZE     8u   /* ÂÆöÊó∂Âô®ËΩÆÂ§ßÂ∞è *//*     Size of timer wheel (#Spokes)                            */
+#define OS_TMR_CFG_TICKS_PER_SEC 10u   /* ÂÆöÊó∂Âô®ÁÆ°ÁêÜ‰ªªÂä°ËøêË°åÈÄüÂ∫¶(Hz) *//*     Rate at which timer management task runs (Hz)            */
 
 #endif
-	 	   	  		 			 	    		   		 		 	 	 			 	    		   	 			 	  	 		 				 		  			 		 					 	  	  		      		  	   		      		  	 		 	      		   		 		  	 		 	      		  		  		  
+

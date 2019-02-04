@@ -15,7 +15,9 @@
 #include "Queue.h"
 #include "BSP_Uart.h"
 #include "BSP_Led.h"
-
+#include "BSP_I2c.h"
+#include "bsp.h"
+#include "bsp_os.h"
 #include "stm32f4xx.h"
 #include "ucos_ii.h"
 #include "app_cfg.h"
@@ -24,31 +26,33 @@
 #include <string.h>
 
 
-static  OS_STK App_TaskStartStk[APP_TASK_START_STK_SIZE];	            //¿ªÊ¼ÈÎÎñ¶ÔÓ¦µÄ¶ÑÕ»
-static  OS_STK App_Task1Stk[APP_TASK_1_STK_SIZE];			            //µÚÒ»¸öÈÎÎñ¶ÔÓ¦µÄ¶ÑÕ»
-static  OS_STK Led2_TaskStk[LED2_TASK_STK_SIZE];			            //µÚÒ»¸öÈÎÎñ¶ÔÓ¦µÄ¶ÑÕ»
-static  OS_STK Float_TaskStk[APP_TASK_Printf_STK_SIZE];			            //µÚÒ»¸öÈÎÎñ¶ÔÓ¦µÄ¶ÑÕ»
-static  OS_STK Tty_TaskStk[TTY_TASK_STK_SIZE];			            //µÚÒ»¸öÈÎÎñ¶ÔÓ¦µÄ¶ÑÕ»
-static  OS_STK Print_TaskStk[PRINT_TASK_STK_SIZE];			            //µÚÒ»¸öÈÎÎñ¶ÔÓ¦µÄ¶ÑÕ»
+static  OS_STK App_TaskStartStk[APP_TASK_START_STK_SIZE];	            //å¼€å§‹ä»»åŠ¡å¯¹åº”çš„å †æ ˆ
+static  OS_STK App_Task1Stk[APP_TASK_1_STK_SIZE];			            //ç¬¬ä¸€ä¸ªä»»åŠ¡å¯¹åº”çš„å †æ ˆ
+static  OS_STK Led2_TaskStk[LED2_TASK_STK_SIZE];			            //ç¬¬ä¸€ä¸ªä»»åŠ¡å¯¹åº”çš„å †æ ˆ
+static  OS_STK Float_TaskStk[APP_TASK_Printf_STK_SIZE];			            //ç¬¬ä¸€ä¸ªä»»åŠ¡å¯¹åº”çš„å †æ ˆ
+static  OS_STK Tty_TaskStk[TTY_TASK_STK_SIZE];			            //ç¬¬ä¸€ä¸ªä»»åŠ¡å¯¹åº”çš„å †æ ˆ
+static  OS_STK Print_TaskStk[PRINT_TASK_STK_SIZE];			            //ç¬¬ä¸€ä¸ªä»»åŠ¡å¯¹åº”çš„å †æ ˆ
 
-static  void  App_TaskStart(void *p_arg);                               //¿ªÊ¼ÈÎÎñ
-static  void  App_TaskCreate(void);							            //´´½¨×ÓÈÎÎñº¯Êı
-static  void  App_Task1(void *p_arg);						            //µÚÒ»¸öÈÎÎñ
-static  void  Led2_Task(void *p_arg);						            //µÚÒ»¸öÈÎÎñ
-static  void  Float_print_Task(void *p_arg);                            //¸¡µãÊı´òÓ¡ÈÎÎñ
+static  void  App_TaskStart(void *p_arg);                               //å¼€å§‹ä»»åŠ¡
+static  void  App_TaskCreate(void);							            //åˆ›å»ºå­ä»»åŠ¡å‡½æ•°
+static  void  App_Task1(void *p_arg);						            //ç¬¬ä¸€ä¸ªä»»åŠ¡
+static  void  Led2_Task(void *p_arg);						            //ç¬¬ä¸€ä¸ªä»»åŠ¡
+static  void  Float_print_Task(void *p_arg);                            //æµ®ç‚¹æ•°æ‰“å°ä»»åŠ¡
+static  void  I2C_Task(void *p_arg);
 
-//´òÓ¡ÈÎÎñ£¬´òÓ¡»º´æÖĞµÄÊı¾İ
+
+//æ‰“å°ä»»åŠ¡ï¼Œæ‰“å°ç¼“å­˜ä¸­çš„æ•°æ®
 static  void  print_Task(void *p_arg);
 
 
 
-static  void  tty_Task(void *p_arg);                            //¸¡µãÊı´òÓ¡ÈÎÎñ
+static  void  tty_Task(void *p_arg);                            //æµ®ç‚¹æ•°æ‰“å°ä»»åŠ¡
 
 /*********************************************************************************
-*ÃèÊö£º¶ÁÈ¡CPUµÄ¼Ä´æÆ÷À´È·¶¨CPUÊ±ÖÓÆµÂÊµÄĞ¾Æ¬
+*æè¿°ï¼šè¯»å–CPUçš„å¯„å­˜å™¨æ¥ç¡®å®šCPUæ—¶é’Ÿé¢‘ç‡çš„èŠ¯ç‰‡
 *
-*·µ»ØÖµ£ºCPUµÄÊ±ÖÓÆµÂÊ£¬µ¥Î»ÎªHz¡£
-**********************************************************************************/
+*è¿”å›å€¼ï¼šCPUçš„æ—¶é’Ÿé¢‘ç‡ï¼Œå•ä½ä¸ºHzã€‚
+*********************************************************************************
 INT32U  BSP_CPU_ClkFreq (void)
 {
     RCC_ClocksTypeDef  rcc_clocks;
@@ -57,69 +61,60 @@ INT32U  BSP_CPU_ClkFreq (void)
 
     return ((INT32U)rcc_clocks.HCLK_Frequency);
 }
+*/
 
-/*********************************************************************************
-*ÃèÊö£ºÏµÍ³µÎ´ğµÄÊ±ÖÓÆµÂÊ
-*
-*·µ»ØÖµ£ºÊ±ÖÓÆµÂÊ£¨ÏµÍ³Ê±ÖÓÖÜÆÚ£©¡£
-**********************************************************************************/
-INT32U  OS_CPU_SysTickClkFreq (void)
-{
-    INT32U  freq;
-
-    freq = BSP_CPU_ClkFreq();
-    return (freq);
-}
 
 
 
 /*************************************************************************************
-  * º¯ÊıÃû³Æ£ºmain()
-  * ²ÎÊı    £ºvoid
-  * ·µ»ØÖµ  £ºvoid
-  * ÃèÊö    £º³ÌĞòÖ÷Èë¿Úmainº¯Êı
+  * å‡½æ•°åç§°ï¼šmain()
+  * å‚æ•°    ï¼švoid
+  * è¿”å›å€¼  ï¼švoid
+  * æè¿°    ï¼šç¨‹åºä¸»å…¥å£mainå‡½æ•°
 **************************************************************************************/
 int main(void)
 {
-    BSP_LedOpen();
-    BSP_UartOpen(COM1,  115200, 8, 1, 0);
+//    BSP_LedOpen();
+    BSP_Init();
 
-    OSInit();                                                           //³õÊ¼»¯OSÄÚºË
-    OSTaskCreate((void (*)(void *)) App_TaskStart,     				    //½¨Á¢¿ªÊ¼ÈÎÎñ
+
+    OSInit();                                                           //åˆå§‹åŒ–OSå†…æ ¸
+    OSTaskCreate((void (*)(void *)) App_TaskStart,     				    //å»ºç«‹å¼€å§‹ä»»åŠ¡
                              (void          * ) 0,
                              (OS_STK        * )&App_TaskStartStk[APP_TASK_START_STK_SIZE - 1],
                              (INT8U           ) APP_TASK_START_PRIO);
 #if (OS_TASK_NAME_SIZE >= 11)
-    OSTaskNameSet(APP_TASK_START_PRIO, (CPU_INT08U *)"Start Task", &os_err);
+    OSTaskNameSet(APP_TASK_START_PRIO, (INT8U *)"Start Task", &os_err);
 #endif
-    OSStart();                                                  //¿ªÊ¼ÈÎÎñµ÷¶È
+    OSStart();                                                  //å¼€å§‹ä»»åŠ¡è°ƒåº¦
     return (0);
 }
-//¿ªÊ¼ÈÎÎñº¯Êı
+//å¼€å§‹ä»»åŠ¡å‡½æ•°
 static  void  App_TaskStart (void *p_arg)
 {
     (void)p_arg;                                                //Initialize BSP functions.
-	//³õÊ¼»¯ÏµÍ³½ÚÅÄÊ±ÖÓ
+	//åˆå§‹åŒ–ç³»ç»ŸèŠ‚æ‹æ—¶é’Ÿ
     OS_CPU_SysTickInit();
-	//Í³¼ÆÈÎÎñ
+	//ç»Ÿè®¡ä»»åŠ¡
 #if (OS_TASK_STAT_EN > 0)
-    OSStatInit();                                               // Determine CPU capacity.
+    OSStatInit();                                               // Determine CPU capacity.   ç®—å‡ºæœ€å¤§çš„ç©ºé—²è®¡æ•°å€¼
+                                                                     //å…¶ä»–ä»»åŠ¡éƒ½æ²¡æœ‰åˆ›å»ºï¼Œåªæœ‰ç©ºé—²ä»»åŠ¡å’Œç»Ÿè®¡ä»»åŠ¡
 #endif
 
-	/* ÔÚ´Ë¿É´´½¨ÆäËûÈÎÎñ */
-    App_TaskCreate();	                                        //½¨Á¢µÚÒ»¸öÈÎÎñ
-//	BSP_Init();	                                                //ÍâÉèµÄ³õÊ¼»¯
+	/* åœ¨æ­¤å¯åˆ›å»ºå…¶ä»–ä»»åŠ¡ */
+    App_TaskCreate();	                                        //å»ºç«‹ç¬¬ä¸€ä¸ªä»»åŠ¡
+//	BSP_Init();	                                                //å¤–è®¾çš„åˆå§‹åŒ–
     while (1)
 	{
-		OSTaskSuspend(OS_PRIO_SELF);  // ¹ÒÆğÈÎÎñ
+		OSTaskSuspend(OS_PRIO_SELF);  // æŒ‚èµ·ä»»åŠ¡
     }
 }
 
 /*************************************************************************************
-  * º¯ÊıÃû³Æ£ºApp_TaskCreate()
-  * ²ÎÊı    £ºvoid
-  * ·µ»ØÖµ  £ºvoid
-  * ÃèÊö    £º´´½¨ÈÎÎñ
+  * å‡½æ•°åç§°ï¼šApp_TaskCreate()
+  * å‚æ•°    ï¼švoid
+  * è¿”å›å€¼  ï¼švoid
+  * æè¿°    ï¼šåˆ›å»ºä»»åŠ¡
 ***************************************************************************************/
 static  void App_TaskCreate(void)
 {
@@ -129,25 +124,25 @@ static  void App_TaskCreate(void)
                              (INT8U           ) APP_TASK_1_PRIO);
 
 
-    OSTaskCreate((void (*)(void *)) Led2_Task,         //Create the start task
+    OSTaskCreate((void (*)(void *)) I2C_Task,         //Create the start task
                          (void          * ) 0,
                          (OS_STK        * )&Led2_TaskStk[LED2_TASK_STK_SIZE - 1],
                          (INT8U           ) LED2_TASK_PRIO);
 
-    OSTaskCreate((void (*)(void *)) Float_print_Task,         //Create float print task
-                         (void          * ) 0,
-                         (OS_STK        * )&Float_TaskStk[APP_TASK_Printf_STK_SIZE- 1],
-                         (INT8U           ) APP_TASK_Printf_PRIO);
+//    OSTaskCreate((void (*)(void *)) Float_print_Task,         //Create float print task
+//                         (void          * ) 0,
+//                         (OS_STK        * )&Float_TaskStk[APP_TASK_Printf_STK_SIZE- 1],
+//                         (INT8U           ) APP_TASK_Printf_PRIO);
 
 
-    OSTaskCreate((void (*)(void *)) tty_Task,         //Create ´®¿ÚÖÕ¶Ë½ÓÊÕ´¦Àí
+    OSTaskCreate((void (*)(void *)) tty_Task,         //Create ä¸²å£ç»ˆç«¯æ¥æ”¶å¤„ç†
                          (void          * ) 0,
                          (OS_STK        * )&Tty_TaskStk[TTY_TASK_STK_SIZE- 1],
                          (INT8U           ) TTY_TASK_PRIO);
 
 
 
-    OSTaskCreate((void (*)(void *)) print_Task,         //Create ´®¿ÚÖÕ¶Ë½ÓÊÕ´¦Àí
+    OSTaskCreate((void (*)(void *)) print_Task,         //Create ä¸²å£ç»ˆç«¯æ¥æ”¶å¤„ç†
                          (void          * ) 0,
                          (OS_STK        * )&Print_TaskStk[PRINT_TASK_STK_SIZE- 1],
                          (INT8U           ) PRINT_TASK_PRIO);
@@ -155,10 +150,10 @@ static  void App_TaskCreate(void)
 
 }
 /*************************************************************************************
-  * º¯ÊıÃû³Æ£ºApp_Task1()
-  * ²ÎÊı    £ºvoid
-  * ·µ»ØÖµ  £ºvoid
-  * ÃèÊö    £ºµÚÒ»¸öÈÎÎñÖ´ĞĞ³ÌĞò
+  * å‡½æ•°åç§°ï¼šApp_Task1()
+  * å‚æ•°    ï¼švoid
+  * è¿”å›å€¼  ï¼švoid
+  * æè¿°    ï¼šç¬¬ä¸€ä¸ªä»»åŠ¡æ‰§è¡Œç¨‹åº
 ***************************************************************************************/
 static  void  App_Task1(void *p_arg)
 {
@@ -167,9 +162,9 @@ static  void  App_Task1(void *p_arg)
 	while(1)
     {
         GPIOE->BSRRL = GPIO_BSRR_BS_13;
-        OSTimeDly(500);
+        OSTimeDly(OS_TICKS_PER_SEC / 2u);
         GPIOE->BSRRH = GPIO_BSRR_BS_13;
-        OSTimeDly(500);
+        OSTimeDly(OS_TICKS_PER_SEC / 2u);
         printf("App_Task1-0121pm\n\r");
 //        BSP_UartWrite(COM1,(uint8_t *)"App_Task1\n",10);
     }
@@ -177,10 +172,10 @@ static  void  App_Task1(void *p_arg)
 
 
 /*************************************************************************************
-  * º¯ÊıÃû³Æ£ºLed2_Task()
-  * ²ÎÊı    £ºvoid
-  * ·µ»ØÖµ  £ºvoid
-  * ÃèÊö    £ºµÚÒ»¸öÈÎÎñÖ´ĞĞ³ÌĞò
+  * å‡½æ•°åç§°ï¼šLed2_Task()
+  * å‚æ•°    ï¼švoid
+  * è¿”å›å€¼  ï¼švoid
+  * æè¿°    ï¼šç¬¬ä¸€ä¸ªä»»åŠ¡æ‰§è¡Œç¨‹åº
 ***************************************************************************************/
 static  void  Led2_Task(void *p_arg)
 {
@@ -189,14 +184,15 @@ static  void  Led2_Task(void *p_arg)
 
 	while(1)
     {
-        GPIOE->BSRRL = GPIO_BSRR_BS_14;
-        OSTimeDly(100);
-        GPIOE->BSRRH = GPIO_BSRR_BS_14;
-        OSTimeDly(100);
+//        GPIOE->BSRRL = GPIO_BSRR_BS_14;
+//        OSTimeDly(OS_TICKS_PER_SEC / 10u);
+//        GPIOE->BSRRH = GPIO_BSRR_BS_14;
+        BSP_LED_Toggle(LED2);
+        OSTimeDly(OS_TICKS_PER_SEC / 10u);
  //       i++;
         printf("Led2_Task---0121\r");
         printf("i = %d\r",i++);
-        printf("Led2_Task---0126\r");
+        printf("Led2_Task---0131\r");
 
  //       BSP_UartWrite(COM1,(uint8_t *)"Led2_Task\n",10);
     }
@@ -207,10 +203,10 @@ static  void  Led2_Task(void *p_arg)
 
 
 /*************************************************************************************
-  * º¯ÊıÃû³Æ£ºLed2_Task()
-  * ²ÎÊı    £ºvoid
-  * ·µ»ØÖµ  £ºvoid
-  * ÃèÊö    £ºµÚÒ»¸öÈÎÎñÖ´ĞĞ³ÌĞò
+  * å‡½æ•°åç§°ï¼šLed2_Task()
+  * å‚æ•°    ï¼švoid
+  * è¿”å›å€¼  ï¼švoid
+  * æè¿°    ï¼šç¬¬ä¸€ä¸ªä»»åŠ¡æ‰§è¡Œç¨‹åº
 ***************************************************************************************/
 static  void  Float_print_Task(void *p_arg)
 {
@@ -225,17 +221,17 @@ static  void  Float_print_Task(void *p_arg)
         x += 1;
         printf("num = %f\n\r",x+num);
 
-        OSTimeDly(4000);
+        OSTimeDly(OS_TICKS_PER_SEC *4);
     }
 }
 
 
 
 /*************************************************************************************
-  * º¯ÊıÃû³Æ£º´®¿ÚÖÕ¶Ë½ÓÊÕ´¦Àíº¯Êı()
-  * ²ÎÊı    £ºvoid
-  * ·µ»ØÖµ  £ºvoid
-  * ÃèÊö    £ºµÚÒ»¸öÈÎÎñÖ´ĞĞ³ÌĞò
+  * å‡½æ•°åç§°ï¼šä¸²å£ç»ˆç«¯æ¥æ”¶å¤„ç†å‡½æ•°()
+  * å‚æ•°    ï¼švoid
+  * è¿”å›å€¼  ï¼švoid
+  * æè¿°    ï¼šç¬¬ä¸€ä¸ªä»»åŠ¡æ‰§è¡Œç¨‹åº
 ***************************************************************************************/
 static  void  tty_Task(void *p_arg)
 {
@@ -251,17 +247,17 @@ static  void  tty_Task(void *p_arg)
 
         if(ret)
         {
-            //ºöÂÔ¿Õ»Ø³µ
+            //å¿½ç•¥ç©ºå›è½¦
             if(strcmp(rec_buf,"\n\r") == 0 || strcmp(rec_buf,"\r\n") == 0 ||
                 strcmp(rec_buf,"\r") == 0 || strcmp(rec_buf,"\n") == 0)
             {
-                OSTimeDly(400);
+                OSTimeDly(OS_TICKS_PER_SEC / 2u);
                 continue;
             }
 //            printf("ret = %d\n",ret);
-            printf("buf = %s\n",rec_buf);   //½ÓÊÕµÄÃüÁî´òÓ¡³öÀ´
+            printf("buf = %s\n",rec_buf);   //æ¥æ”¶çš„å‘½ä»¤æ‰“å°å‡ºæ¥
         }
-        OSTimeDly(400);
+        OSTimeDly(OS_TICKS_PER_SEC / 2u);
     }
 }
 
@@ -270,7 +266,7 @@ static  void  tty_Task(void *p_arg)
 
 
 
-//´òÓ¡ÈÎÎñ£¬´òÓ¡»º´æÖĞµÄÊı¾İ
+//æ‰“å°ä»»åŠ¡ï¼Œæ‰“å°ç¼“å­˜ä¸­çš„æ•°æ®
 static  void  print_Task(void *p_arg)
 {
     (void)p_arg;
@@ -278,7 +274,54 @@ static  void  print_Task(void *p_arg)
 	while(1)
     {
         send_uart1();
-        OSTimeDly(100);
+        OSTimeDly(OS_TICKS_PER_SEC / 10u);
+    }
+}
+
+
+void print_charbuf(INT8U arr[],int len)
+{
+    int i;
+
+    for(i=0;i<len;i++)
+    {
+        printf("%x ",arr[i]);
+    }
+    printf("\r");
+}
+
+
+/*************************************************************************************
+  * å‡½æ•°åç§°ï¼šI2C_Task()   24c02
+  * å‚æ•°    ï¼švoid
+  * è¿”å›å€¼  ï¼švoid
+  * æè¿°    ï¼š24c02ç¨‹åº
+***************************************************************************************/
+static  void  I2C_Task(void *p_arg)
+{
+	(void)p_arg;
+	int ret ;
+
+    INT8U buf[16];
+
+    //1.åˆå§‹åŒ–I2Cæ¥å£
+    BSP_I2cOpen(I2C_1,10000);
+
+    ret = BSP_I2cWrite(I2C_1,"20190202--zhaozhi",0,10,17);
+	printf("i2c write  ret = %d\r",ret);
+
+
+	while(1)
+    {
+        memset(buf,0,16);
+		ret = BSP_I2cIdleState(I2C_1);
+		if(0 == ret)
+		{
+	        ret = BSP_I2cRead(I2C_1,buf,0,10,16);
+			printf("i2c read  ret = %d\r",ret);
+	        print_charbuf(buf,16);
+		}
+        BSP_OS_TimeDlyMs(1000);
     }
 }
 

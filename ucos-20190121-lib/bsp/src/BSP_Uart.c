@@ -24,6 +24,11 @@
 
 #include "Queue.h"
 #include "BSP_Uart.h"
+#include "os_cpu.h"
+#include "ucos_ii.h"
+
+#include "app_cfg.h"     //增加宏控制语句
+
 
 
 //20190126
@@ -899,7 +904,19 @@ void _IRQHandler(uint8_t COM)
 *******************************************************************************/
 void USART1_IRQHandler(void)
 {
+#ifdef __UCOS__
+#if OS_CRITICAL_METHOD == 3u                     /* Allocate storage for CPU status register           */
+	OS_CPU_SR  cpu_sr = 0u;
+#endif
+	OS_ENTER_CRITICAL();						 /* Tell uC/OS-II that we are starting an ISR		   */
+	OSIntNesting++;
+	OS_EXIT_CRITICAL();
+#endif
     _IRQHandler(COM1);
+#ifdef __UCOS__
+	OSIntExit();								 /* Tell uC/OS-II that we are leaving the ISR		   */
+#endif
+
 }
 #endif //COM1_EN > 0
 
@@ -913,7 +930,19 @@ void USART1_IRQHandler(void)
 *******************************************************************************/
 void USART2_IRQHandler(void)
 {
-    _IRQHandler(COM2);
+#ifdef __UCOS__
+#if OS_CRITICAL_METHOD == 3u                     /* Allocate storage for CPU status register           */
+		OS_CPU_SR  cpu_sr = 0u;
+#endif
+		OS_ENTER_CRITICAL();						 /* Tell uC/OS-II that we are starting an ISR		   */
+		OSIntNesting++;
+		OS_EXIT_CRITICAL();
+#endif
+		_IRQHandler(COM2);
+#ifdef __UCOS__
+		OSIntExit();								 /* Tell uC/OS-II that we are leaving the ISR		   */
+#endif
+
 }
 #endif //COM2_EN > 0
 
@@ -927,7 +956,19 @@ void USART2_IRQHandler(void)
 *******************************************************************************/
 void USART3_IRQHandler(void)
 {
-    _IRQHandler(COM3);
+#ifdef __UCOS__
+#if OS_CRITICAL_METHOD == 3u                     /* Allocate storage for CPU status register           */
+		OS_CPU_SR  cpu_sr = 0u;
+#endif
+		OS_ENTER_CRITICAL();						 /* Tell uC/OS-II that we are starting an ISR		   */
+		OSIntNesting++;
+		OS_EXIT_CRITICAL();
+#endif
+		_IRQHandler(COM3);
+#ifdef __UCOS__
+		OSIntExit();								 /* Tell uC/OS-II that we are leaving the ISR		   */
+#endif
+
 }
 #endif //COM3_EN > 0
 
@@ -941,7 +982,19 @@ void USART3_IRQHandler(void)
 *******************************************************************************/
 void UART4_IRQHandler(void)
 {
-    _IRQHandler(COM4);
+#ifdef __UCOS__
+#if OS_CRITICAL_METHOD == 3u                     /* Allocate storage for CPU status register           */
+		OS_CPU_SR  cpu_sr = 0u;
+#endif
+		OS_ENTER_CRITICAL();						 /* Tell uC/OS-II that we are starting an ISR		   */
+		OSIntNesting++;
+		OS_EXIT_CRITICAL();
+#endif
+		_IRQHandler(COM4);
+#ifdef __UCOS__
+		OSIntExit();								 /* Tell uC/OS-II that we are leaving the ISR		   */
+#endif
+
 }
 #endif //COM4_EN > 0
 
@@ -955,7 +1008,19 @@ void UART4_IRQHandler(void)
 *******************************************************************************/
 void UART5_IRQHandler(void)
 {
-    _IRQHandler(COM5);
+#ifdef __UCOS__
+#if OS_CRITICAL_METHOD == 3u                     /* Allocate storage for CPU status register           */
+		OS_CPU_SR  cpu_sr = 0u;
+#endif
+		OS_ENTER_CRITICAL();						 /* Tell uC/OS-II that we are starting an ISR		   */
+		OSIntNesting++;
+		OS_EXIT_CRITICAL();
+#endif
+		_IRQHandler(COM5);
+#ifdef __UCOS__
+		OSIntExit();								 /* Tell uC/OS-II that we are leaving the ISR		   */
+#endif
+
 }
 #endif //COM5_EN > 0
 
@@ -969,7 +1034,19 @@ void UART5_IRQHandler(void)
 *******************************************************************************/
 void USART6_IRQHandler(void)
 {
-    _IRQHandler(COM6);
+#ifdef __UCOS__
+#if OS_CRITICAL_METHOD == 3u                     /* Allocate storage for CPU status register           */
+		OS_CPU_SR  cpu_sr = 0u;
+#endif
+		OS_ENTER_CRITICAL();						 /* Tell uC/OS-II that we are starting an ISR		   */
+		OSIntNesting++;
+		OS_EXIT_CRITICAL();
+#endif
+		_IRQHandler(COM6);
+#ifdef __UCOS__
+		OSIntExit();								 /* Tell uC/OS-II that we are leaving the ISR		   */
+#endif
+
 }
 #endif //COM6_EN > 0
 
@@ -983,7 +1060,19 @@ void USART6_IRQHandler(void)
 *******************************************************************************/
 void UART7_IRQHandler(void)
 {
-    _IRQHandler(COM7);
+#ifdef __UCOS__
+#if OS_CRITICAL_METHOD == 3u                     /* Allocate storage for CPU status register           */
+		OS_CPU_SR  cpu_sr = 0u;
+#endif
+		OS_ENTER_CRITICAL();						 /* Tell uC/OS-II that we are starting an ISR		   */
+		OSIntNesting++;
+		OS_EXIT_CRITICAL();
+#endif
+		_IRQHandler(COM7);
+#ifdef __UCOS__
+		OSIntExit();								 /* Tell uC/OS-II that we are leaving the ISR		   */
+#endif
+
 }
 #endif //COM7_EN > 0
 
@@ -997,7 +1086,19 @@ void UART7_IRQHandler(void)
 *******************************************************************************/
 void UART8_IRQHandler(void)
 {
-    _IRQHandler(COM8);
+#ifdef __UCOS__
+#if OS_CRITICAL_METHOD == 3u                     /* Allocate storage for CPU status register           */
+		OS_CPU_SR  cpu_sr = 0u;
+#endif
+		OS_ENTER_CRITICAL();						 /* Tell uC/OS-II that we are starting an ISR		   */
+		OSIntNesting++;
+		OS_EXIT_CRITICAL();
+#endif
+		_IRQHandler(COM8);
+#ifdef __UCOS__
+		OSIntExit();								 /* Tell uC/OS-II that we are leaving the ISR		   */
+#endif
+
 }
 #endif //COM8_EN > 0
 

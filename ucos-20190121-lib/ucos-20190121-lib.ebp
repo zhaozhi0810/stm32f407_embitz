@@ -88,9 +88,24 @@
 			<Add option="-eb_start_files" />
 			<Add option="-eb_lib=n" />
 		</Linker>
+		<Unit filename="bsp\inc\bsp.h" />
+		<Unit filename="bsp\inc\BSP_I2c.h" />
 		<Unit filename="bsp\inc\BSP_Led.h" />
+		<Unit filename="bsp\inc\bsp_os.h" />
 		<Unit filename="bsp\inc\BSP_Uart.h" />
+		<Unit filename="bsp\src\bsp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="bsp\src\BSP_I2c.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="bsp\src\BSP_Led.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="bsp\src\bsp_os.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="bsp\src\bsp_periph.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="bsp\src\BSP_Uart.c">

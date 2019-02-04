@@ -484,7 +484,7 @@
  uint32_t BSP_UartTxIdleState(uint8_t COM);
 
 int uart1_read (char *pBuffer, int size);
-
+void send_uart1(void);
  #endif
 
 //BSP_Uart.h
